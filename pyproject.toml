@@ -1,0 +1,33 @@
+[tool.poetry]
+name = "dagviz"
+version = "0.1.0"
+description = "Visualization for DAGs"
+authors = ["Wim Yedema <wim.yedema@gmail.com>"]
+readme = "README.md"
+repository = "https://github.com/WimYedema/dagviz.git"
+classifiers = [
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8",
+    "Operating System :: OS Independent",
+]
+license = "Apache License 2.0"
+
+[tool.poetry.dependencies]
+python = "^3.7"
+networkx = "^2.5.1"
+svgwrite = "^1.4.1"
+importlib-metadata = { version="^1.0", python="<3.8" }
+
+[tool.poetry.dev-dependencies]
+mypy = "^0.790"
+mypy-extensions = "^0.4.3"
+flake8 = "^3.8.4"
+flake8-eradicate = "^1.0.0"
+flake8-comprehensions = "^3.2.3"
+flake8-print = "^3.1.4"
+black = "^20.8b1"
+pdoc3 = "^0.9.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

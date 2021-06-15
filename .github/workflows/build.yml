@@ -1,0 +1,54 @@
+name: Build
+
+on: [push]
+
+jobs:
+  environment: github-actions
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v1
+      with:
+        python-version: 3.7
+    - name: "Install poetry"
+      shell: bash
+      run: |
+        pip install -U pip
+        pip install poetry
+
+    - name: "Set-up virtual env"
+      shell: bash
+      run: |
+        export long_version=$(git describe --tags --abbrev=12)
+        export short_version=$(git describe --tags --abbrev=0)
+        # Make version pep0440 compliant
+        export pkg_version=${long_version/$short_version-/$short_version+}
+        poetry version ${pkg_version#v}
+        poetry install --no-root
+      env:
+        POETRY_VIRTUALENVS_CREATE: false
+
+    - name: Static checks
+      shell: bash
+      run: |
+        black --check dagviz
+        mypy dagviz
+        flake8 dagviz
+
+    - name: Build package
+      shell: bash
+      run: |
+        poetry build
+
+    - name: Test
+      shell: bash
+      run: |
+        pytest --cov dagviz --cov-branch --cov-report xml
+
+    - name: Publish distribution to Test PyPI
+      uses: pypa/gh-action-pypi-publish@master
+      with:
+        password: ${{ secrets.TEST_PYPI_API_TOKEN }}
+        repository_url: https://test.pypi.org/legacy/
