@@ -1,8 +1,12 @@
+"""
+Metro is the default, and currently only, style for drawing DAGs.
+"""
+from dagviz.istyle import iStyle
 import math
 from dataclasses import dataclass
 from typing import Any, Callable, Optional, Sequence, Tuple
 
-import svgwrite as svg  # type: ignore
+import svgwrite as svg
 
 from .colors import palette
 
@@ -31,23 +35,43 @@ def _arc(
 
 
 @dataclass
-class PlotConfig:
+class StyleConfig:
+    """
+    Styling options for the metro style.
+    """
+
     scale: float = 10.0
+    "The size of a single cell."
+
     node_radius: float = 6.0
+    "The size of a node."
+
     node_fill: Optional[str] = None
+    "Optional. The fill color of the node. Colors will be assigned automatically if unspecified."
+
     node_stroke: str = "white"
+    "The border color of a node"
+
     node_stroke_width: float = 2.0
+    "The border width of a node"
+
     edge_stroke_width: float = 2.0
+    "The line width of an edge"
+
     label_font_family: str = "sans-serif"
+    "The font family of the label"
+
     label_arrow_stroke: str = "lightgrey"
+    "The line color for the line from the label to the node"
+
     label_arrow_dash_array: str = "2"
+    "The dashing style for the line from the label to the node"
+
     arc_radius: float = 15.0
+    "The radius of an input arc"
 
 
-default_config = PlotConfig()
-
-
-class Style:
+class _Style(iStyle):
     d: svg.Drawing
     background: svg.container.Group
     edges: svg.container.Group
@@ -62,7 +86,7 @@ class Style:
     def __init__(
         self,
         d: svg.Drawing,
-        config: PlotConfig,
+        config: StyleConfig,
         colors: int,
         shift: int = 0,
     ):
@@ -85,7 +109,6 @@ class Style:
         self.shift = shift
         self.colors = palette(colors)
 
-    @property
     def box(self) -> Tuple[float, float, float, float]:
         return (
             self._top - self.config.scale,
@@ -227,8 +250,15 @@ class Style:
         )
 
 
-def styler(config: PlotConfig) -> Callable[..., Style]:
-    def builder(d: svg.Drawing, colors: int, shift: int = 0) -> Style:
-        return Style(d, config, colors, shift)
+def styler(config: StyleConfig = StyleConfig()) -> Callable[..., iStyle]:
+    """
+    Create a renderer with the specified style configuration.
+
+    Args:
+        config: the configuration of the metro style
+    """
+
+    def builder(d: svg.Drawing, colors: int, shift: int = 0) -> iStyle:
+        return _Style(d, config, colors, shift)
 
     return builder

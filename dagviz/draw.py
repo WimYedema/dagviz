@@ -1,16 +1,27 @@
+"""
+Rendering of an abstract plot to a concrete format.
+"""
 from typing import Callable, List
 
-import svgwrite as svg  # type: ignore
-from IPython.display import SVG  # type: ignore
+import svgwrite as svg
 
 from .abstract import AbstractColumn, AbstractPlot
-from .draw_style import Style
+from .istyle import iStyle
 
 
-def toSvg(plot: AbstractPlot, styler: Callable[..., Style]) -> SVG:
+def toSvg(plot: AbstractPlot, styler: Callable[..., iStyle]) -> str:
+    """
+    Render the plot as an SVG using the specified style.
+
+    Args:
+        plot: The abstract plot to render
+        styler: The style to use in the rendering. For example `dagviz.style.metro.styler`
+    Returns:
+        A string with the SVG content.
+    """
     d = svg.Drawing()
 
-    style: Style = styler(d, plot.colors, -plot.columns.start)
+    style: iStyle = styler(d, plot.colors, -plot.columns.start)
     for row in plot.rows:
         last_col = 0
         arcs: List[AbstractColumn] = []
@@ -65,6 +76,6 @@ def toSvg(plot: AbstractPlot, styler: Callable[..., Style]) -> SVG:
 
         style.place_label(nodepos, (last_col + 1, row.row), row.label)
 
-    t, l, b, r = style.box
+    t, l, b, r = style.box()
     d.viewbox(l, t, r - l, b - t)
-    return SVG(d.tostring())
+    return d.tostring()

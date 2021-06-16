@@ -1,8 +1,18 @@
+"""
+Color palette generation.
+"""
 from colorsys import hls_to_rgb
 from typing import List, Sequence
 
 
 def palette(ncolors: int) -> Sequence[str]:
+    """
+    Generate a sequence of colors. The colors should be distinct, but this
+    function only does a best effort.
+
+    Args:
+        ncolors: the number of colors to generate.
+    """
     colors: List[str] = []
     hue, lightness, saturation = 0.0, 1.0, 0.5
     for i in range(ncolors):

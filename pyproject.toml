@@ -17,6 +17,7 @@ python = "^3.7"
 networkx = "^2.5.1"
 svgwrite = "^1.4.1"
 importlib-metadata = { version="^1.0", python="<3.8" }
+ipython = "^7.24.1"
 
 [tool.poetry.dev-dependencies]
 mypy = "^0.790"

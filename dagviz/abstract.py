@@ -1,36 +1,89 @@
+"""
+Abstract table-like representation of a DAG visualization.
+
+Like a table, a DAG visualization has a number of rows. Each row has a
+number of columns, but empty columns are not represented in the row.
+Each cell (column, row) will have information regarding:
+
+* whether it contains a node
+* whether it contains an input for the node on this row
+* what the color is of the item in this cell
+* how many successor are remaining for the active node in this column
+
+This information can later be used to render the plot.
+"""
 from abc import ABC, abstractmethod
 from dataclasses import dataclass, field
 from typing import Any, Dict, Iterator, List, Mapping, Tuple
 
-import networkx as nx
-import networkx.algorithms.dag as dag
-
 
 class iRowBuilder(ABC):
+    """
+    Interface for mapping nodes to columns.
+    """
+
     @abstractmethod
     def map_node(self, nd: Any) -> Tuple[int, int]:
+        """
+        Assign a new node to a column.
+
+        Args:
+            nd: the node to add
+        Returns:
+            (column, color) of the node.
+        """
         ...
 
     @abstractmethod
     def unmap_node(self, nd: Any) -> None:
+        """
+        Remove a node, freeing the column for new nodes.
+
+        Args:
+            nd: the node to remove
+        """
         ...
 
     @abstractmethod
     def node_column(self, nd: Any) -> int:
+        """
+        Fetch the column that a node has been mapped to.
+
+        Args:
+            nd: A mapped node
+        Returns:
+            The column number the node was assigned to.
+        """
         ...
 
 
 class AbstractColumn:
+    "Column information for a single row."
+
     column: int
+    "The column number, can be positive and negative."
+
     start_row: "AbstractRow"
+    "The row that contains the active node."
+
     next_row: "AbstractRow"
+    "The value of start_row for the next row."
+
     color: int
+    "The color number for the item in this column."
+
     remaining: int
+    "The number of remaining successors for the node in `start_row`."
+
     is_input: bool
+    "Does this (column, row) contain an input?"
+
     is_node: bool
+    "Does this (column, row) contain a node?"
 
     @property
     def is_last(self) -> bool:
+        "Is this the last successor of the node in `start_row`"
         return self.remaining == 0
 
     def __init__(
@@ -46,16 +99,29 @@ class AbstractColumn:
 
     @staticmethod
     def copyFromLast(other: "AbstractColumn") -> "AbstractColumn":
+        "copy relevant column information from the previous row"
         return AbstractColumn(
             other.column, other.next_row, other.color, other.remaining
         )
 
 
 class AbstractRow:
+    """
+    An abstract row containing a single (labeled) node, an arbitrary number
+    of inputs, and an arbitrary number of edges.
+
+    A row is iterable, iterating over the columns from left to right.
+    """
+
     _builder: iRowBuilder
     row: int
+    "The 0-based index of this row"
+
     columns: Dict[int, AbstractColumn]
+    "The columns in this row. The keys are integers, but can have arbitrary values, smaller integers are on the left."
+
     label: str
+    "The label of the node on this row."
 
     def __iter__(self) -> Iterator[AbstractColumn]:
         for col in sorted(self.columns.values(), key=lambda c: c.column):
@@ -68,6 +134,15 @@ class AbstractRow:
         columns: Mapping[Any, AbstractColumn],
         label: str,
     ):
+        """
+        Construct a new abstract row.
+
+        Args:
+            builder: interface to map nodes to columns
+            row:     the index of this row
+            columns: the columns of the previous node, or {}
+            label:   the label of the node on this row
+        """
         self._builder = builder
         self.row = row
         self.columns = {
@@ -78,6 +153,12 @@ class AbstractRow:
         self.label = label
 
     def add_input(self, pred: Any) -> None:
+        """
+        Add an input to the node on this row.
+
+        Args:
+            pred: a predecessor node of the node on this row
+        """
         col = self._builder.node_column(pred)
         self.columns[col].is_input = True
         self.columns[col].remaining -= 1
@@ -85,6 +166,13 @@ class AbstractRow:
             self._builder.unmap_node(pred)
 
     def add_node(self, nd: Any, nsuccs: int) -> None:
+        """
+        Add the node of this row. This method must be called exactly once
+        for each row.
+
+        Args: nd:     the node, this is only used as identifier nsuccs: the
+            number of successors of `nd`
+        """
         col, color = self._builder.map_node(nd)
         if col not in self.columns:
             self.columns[col] = AbstractColumn(col, self)
@@ -98,13 +186,31 @@ class AbstractRow:
 
 @dataclass
 class AbstractPlot(iRowBuilder):
+    """
+    An abstract table-like visualization of a DAG.
+    """
+
     columns: range = range(0)
+    "The range of columns present in the rows. Does not need to start at 0."
+
     colors: int = 0
+    "The number of colors in this plot."
+
+    rows: List["AbstractRow"] = field(default_factory=list)
+    "The rows of this visualization."
+
     _gaps: List[int] = field(default_factory=list)
     _mapping: Dict[Any, int] = field(default_factory=dict)
-    rows: List["AbstractRow"] = field(default_factory=list)
 
     def add_row(self, label: str) -> AbstractRow:
+        """
+        Add a new row to the bottom of this visualization.
+
+        Args:
+            label: the label of the node in this row.
+        Returns:
+            The AbstractRow that was added.
+        """
         index = len(self.rows)
         if index == 0:
             row = AbstractRow(self, 0, {}, label)
@@ -129,15 +235,3 @@ class AbstractPlot(iRowBuilder):
 
     def node_column(self, nd: Any) -> int:
         return self._mapping[nd]
-
-
-def plot_graph(G: nx.Graph) -> AbstractPlot:
-    plot = AbstractPlot()
-    for i, nd in enumerate(list(dag.topological_sort(G))):
-        row = plot.add_row(G.nodes[nd].get("label", f"{nd}"))
-        for pred in G.pred[nd]:
-            row.add_input(pred)
-
-        row.add_node(nd, len(G.succ[nd]))
-
-    return plot
