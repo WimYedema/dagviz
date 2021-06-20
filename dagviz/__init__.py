@@ -65,11 +65,11 @@ def render_svg(G: nx.Graph, *, style: Callable[..., iStyle] = metro.styler()) ->
     return toSvg(make_abstract_plot(G), style)
 
 
-class DAG(nx.Graph):
+class DAG(nx.DiGraph):
     """
     Wrapper around networkx Graph that will render the graph as an SVG in
     jupyter notebooks.
     """
 
-    def __repr_html__(self) -> str:
+    def _repr_html_(self) -> str:
         return render_svg(self)

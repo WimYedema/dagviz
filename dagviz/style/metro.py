@@ -114,7 +114,7 @@ class _Style(iStyle):
             self._top - self.config.scale,
             self._left - self.config.scale,
             self._bottom + self.config.scale,
-            self._right * 2,
+            max(500, self._right * 2),
         )
 
     def coord(self, xy: Tuple[int, int], dxy: _XY = (0.0, 0.0)) -> _XY:
