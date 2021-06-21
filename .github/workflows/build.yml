@@ -3,8 +3,8 @@ name: Build
 on: [push]
 
 jobs:
-  environment: github-actions
   build:
+    environment: github-actions
     runs-on: windows-latest
 
     steps:
