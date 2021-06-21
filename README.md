@@ -32,4 +32,4 @@ DAG. An SVG file can be generated as follows:
     with open("simple.svg", "wt") as fs:
         fs.write(r)
 ```
-This will yield this graph: ![Simple example](./gallery/simple.svg)
+This will yield this graph: ![Simple example](./gallery/simple.png)
