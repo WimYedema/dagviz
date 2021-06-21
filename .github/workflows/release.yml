@@ -9,7 +9,7 @@ on:
 jobs:
   build:
     environment: github-actions
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
@@ -31,7 +31,7 @@ jobs:
         export pkg_version=${long_version/$short_version-/$short_version+}
         poetry config virtualenvs.create false
         poetry version ${pkg_version#v}
-        poetry install
+        poetry install --no-root
 
     - name: Static checks
       shell: bash
@@ -44,6 +44,7 @@ jobs:
       shell: bash
       run: |
         poetry build
+        poetry install
         echo "::set-output name=release-file::$(cd dist && echo *.gz)"
 
     - name: Test
