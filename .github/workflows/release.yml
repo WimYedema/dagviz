@@ -29,10 +29,9 @@ jobs:
         export short_version=$(git describe --tags --abbrev=0)
         # Make version pep0440 compliant
         export pkg_version=${long_version/$short_version-/$short_version+}
+        poetry config virtualenvs.create false
         poetry version ${pkg_version#v}
         poetry install --no-root
-      env:
-        POETRY_VIRTUALENVS_CREATE: false
 
     - name: Static checks
       shell: bash
