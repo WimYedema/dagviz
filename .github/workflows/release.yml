@@ -31,7 +31,7 @@ jobs:
         export pkg_version=${long_version/$short_version-/$short_version+}
         poetry config virtualenvs.create false
         poetry version ${pkg_version#v}
-        poetry install --no-root
+        poetry install
 
     - name: Static checks
       shell: bash
