@@ -52,7 +52,9 @@ def make_abstract_plot(
     return plot
 
 
-def render_svg(G: nx.Graph, *, style: Callable[..., iStyle] = metro.svg_renderer()) -> str:
+def render_svg(
+    G: nx.Graph, *, style: Callable[..., iStyle] = metro.svg_renderer()
+) -> str:
     """
     Generate a DAG visualization as an SVG string.
 
