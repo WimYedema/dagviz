@@ -13,7 +13,7 @@ def render(plot: AbstractPlot, styler: Callable[..., iStyle]) -> str:
 
     Args:
         plot: The abstract plot to render
-        styler: The style to use in the rendering. For example `dagviz.style.metro.styler`
+        styler: The style to use in the rendering. For example `dagviz.style.metro.svg_renderer`
     Returns:
         A string with the SVG content.
     """

@@ -59,8 +59,8 @@ def render_svg(
     Generate a DAG visualization as an SVG string.
 
     Args:
-        G:      The DAG to visualize
-        styler: Optional; The visualization style to apply
+        G:     The DAG to visualize
+        style: Optional; The visualization style to apply
     Returns:
         A string containing the SVG of the plot
     """
