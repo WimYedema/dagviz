@@ -14,12 +14,12 @@ class iStyle(ABC):
     """
 
     @abstractmethod
-    def box(self) -> Tuple[float, float, float, float]:
+    def dumps(self) -> str:
         """
-        Compute the bounding box of the plot.
+        Produce a string for the rendering of the graph.
 
         Returns:
-            (top, left, bottom, right) coordinates of the plot.
+            a string representing the graph in the appropriate format.
         """
         ...
 

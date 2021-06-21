@@ -98,7 +98,7 @@ class AbstractColumn:
         self.is_node = False
 
     @staticmethod
-    def copyFromLast(other: "AbstractColumn") -> "AbstractColumn":
+    def copy_from_last(other: "AbstractColumn") -> "AbstractColumn":
         "copy relevant column information from the previous row"
         return AbstractColumn(
             other.column, other.next_row, other.color, other.remaining
@@ -146,7 +146,7 @@ class AbstractRow:
         self._builder = builder
         self.row = row
         self.columns = {
-            k: AbstractColumn.copyFromLast(s)
+            k: AbstractColumn.copy_from_last(s)
             for k, s in columns.items()
             if s.remaining != 0
         }

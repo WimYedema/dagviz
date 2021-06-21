@@ -14,7 +14,7 @@ import networkx as nx
 from networkx.algorithms import dag
 
 from .abstract import AbstractPlot
-from .draw import toSvg
+from .render import render
 from .istyle import iStyle
 from .style import metro
 
@@ -52,7 +52,7 @@ def make_abstract_plot(
     return plot
 
 
-def render_svg(G: nx.Graph, *, style: Callable[..., iStyle] = metro.styler()) -> str:
+def render_svg(G: nx.Graph, *, style: Callable[..., iStyle] = metro.svg_renderer()) -> str:
     """
     Generate a DAG visualization as an SVG string.
 
@@ -62,7 +62,7 @@ def render_svg(G: nx.Graph, *, style: Callable[..., iStyle] = metro.styler()) ->
     Returns:
         A string containing the SVG of the plot
     """
-    return toSvg(make_abstract_plot(G), style)
+    return render(make_abstract_plot(G), style)
 
 
 class DAG(nx.DiGraph):

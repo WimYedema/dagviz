@@ -85,17 +85,16 @@ class _Style(iStyle):
 
     def __init__(
         self,
-        d: svg.Drawing,
         config: StyleConfig,
         colors: int,
         shift: int = 0,
     ):
-        self.d = d
-        self.background = d.g()
-        self.vlines = d.g()
-        self.hline_borders = d.g()
-        self.hlines = d.g()
-        self.nodes = d.g()
+        self.d = svg.Drawing()
+        self.background = self.d.g()
+        self.vlines = self.d.g()
+        self.hline_borders = self.d.g()
+        self.hlines = self.d.g()
+        self.nodes = self.d.g()
         self.d.add(self.background)
         self.d.add(self.vlines)
         self.d.add(self.hline_borders)
@@ -109,7 +108,12 @@ class _Style(iStyle):
         self.shift = shift
         self.colors = palette(colors)
 
-    def box(self) -> Tuple[float, float, float, float]:
+    def dumps(self) -> str:
+        t, l, b, r = self._box()
+        self.d.viewbox(l, t, r - l, b - t)
+        return self.d.tostring()
+
+    def _box(self) -> Tuple[float, float, float, float]:
         return (
             self._top - self.config.scale,
             self._left - self.config.scale,
@@ -250,7 +254,7 @@ class _Style(iStyle):
         )
 
 
-def styler(config: StyleConfig = StyleConfig()) -> Callable[..., iStyle]:
+def svg_renderer(config: StyleConfig = StyleConfig()) -> Callable[..., iStyle]:
     """
     Create a renderer with the specified style configuration.
 
@@ -258,7 +262,7 @@ def styler(config: StyleConfig = StyleConfig()) -> Callable[..., iStyle]:
         config: the configuration of the metro style
     """
 
-    def builder(d: svg.Drawing, colors: int, shift: int = 0) -> iStyle:
-        return _Style(d, config, colors, shift)
+    def builder(colors: int, shift: int = 0) -> iStyle:
+        return _Style(config, colors, shift)
 
     return builder

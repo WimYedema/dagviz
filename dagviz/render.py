@@ -3,13 +3,11 @@ Rendering of an abstract plot to a concrete format.
 """
 from typing import Callable, List
 
-import svgwrite as svg
-
 from .abstract import AbstractColumn, AbstractPlot
 from .istyle import iStyle
 
 
-def toSvg(plot: AbstractPlot, styler: Callable[..., iStyle]) -> str:
+def render(plot: AbstractPlot, styler: Callable[..., iStyle]) -> str:
     """
     Render the plot as an SVG using the specified style.
 
@@ -19,9 +17,7 @@ def toSvg(plot: AbstractPlot, styler: Callable[..., iStyle]) -> str:
     Returns:
         A string with the SVG content.
     """
-    d = svg.Drawing()
-
-    style: iStyle = styler(d, plot.colors, -plot.columns.start)
+    style: iStyle = styler(plot.colors, -plot.columns.start)
     for row in plot.rows:
         last_col = 0
         arcs: List[AbstractColumn] = []
@@ -76,6 +72,4 @@ def toSvg(plot: AbstractPlot, styler: Callable[..., iStyle]) -> str:
 
         style.place_label(nodepos, (last_col + 1, row.row), row.label)
 
-    t, l, b, r = style.box()
-    d.viewbox(l, t, r - l, b - t)
-    return d.tostring()
+    return style.dumps()
