@@ -13,8 +13,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-      persist-credentials: true
-
+    - uses: actions/checkout@v2
+      with:
+        ref: gh-pages
+        path: docs
     - uses: actions/setup-python@v1
       with:
         python-version: 3.7
@@ -45,7 +47,6 @@ jobs:
     - name: Build docs
       shell: bash
       run: |
-        git worktree add docs gh-pages
         pdoc -f --html -o docs dagviz
         rm -rf docs/notebooks
         mkdir -p docs/notebooks
