@@ -1,0 +1,59 @@
+name: Build
+
+on:
+  pull_request:
+    types: [opened, reopened]
+
+jobs:
+  build:
+    environment: github-actions
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/checkout@v2
+      with:
+        ref: gh-pages
+        path: docs
+
+    - uses: actions/setup-python@v1
+      with:
+        python-version: 3.7
+    - name: "Install poetry"
+      shell: bash
+      run: |
+        pip install -U pip
+        pip install poetry
+
+    - name: "Set-up virtual env"
+      shell: bash
+      run: |
+        poetry config virtualenvs.create false
+        poetry install --no-root
+
+    - name: Static checks
+      shell: bash
+      run: |
+        black --check dagviz
+        mypy dagviz
+        flake8 dagviz
+
+    - name: Build package
+      shell: bash
+      run: |
+        poetry build
+        poetry install
+        echo "::set-output name=release-file::$(cd dist && echo *.gz)"
+
+    - name: Test
+      shell: bash
+      run: |
+        pytest --cov dagviz --cov-branch --cov-report xml
+
+    - name: Build docs
+      shell: bash
+      run: |
+        pdoc -f --html -o docs dagviz
+        rm -rf docs/notebooks
+        mkdir -p docs/notebooks
+        cp notebooks/*.html docs/notebooks
