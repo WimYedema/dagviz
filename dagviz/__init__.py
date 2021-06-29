@@ -17,6 +17,7 @@ from .abstract import AbstractPlot
 from .render import render
 from .istyle import iStyle
 from .style import metro
+from .dagre import Dagre  # noqa
 
 
 def make_abstract_plot(
@@ -81,6 +82,3 @@ class Metro:
 
     def _repr_html_(self) -> str:
         return render_svg(self.graph)
-
-
-from .dagre import Dagre
