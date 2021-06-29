@@ -170,8 +170,8 @@ class _Style(iStyle):
                 a,
                 b,
                 stroke_width=self.config.edge_stroke_width
-                + 2 * self.config.node_stroke_width,
-                stroke=self.config.node_stroke,
+                + 2 * min(self.config.edge_stroke_width, self.config.node_stroke_width),
+                stroke="white",
             )
         )
 
