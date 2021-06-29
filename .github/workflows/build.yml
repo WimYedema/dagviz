@@ -11,10 +11,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/checkout@v2
-      with:
-        ref: gh-pages
-        path: docs
 
     - uses: actions/setup-python@v1
       with:
@@ -54,6 +50,15 @@ jobs:
       shell: bash
       run: |
         pdoc -f --html -o docs dagviz --template-dir doc-template
-        rm -rf docs/notebooks
         mkdir -p docs/notebooks
         cp notebooks/*.html docs/notebooks
+
+    - name: Deploy docs
+      uses: crazy-max/ghaction-github-pages@v2
+      with:
+        target_branch: gh-pages
+        build_dir: docs
+        jekyll: false
+        dry_run: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

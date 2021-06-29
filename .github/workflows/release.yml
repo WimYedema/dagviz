@@ -16,10 +16,6 @@ jobs:
       with:
         fetch-depth: 0
 
-    - uses: actions/checkout@v2
-      with:
-        ref: gh-pages
-        path: docs
     - uses: actions/setup-python@v1
       with:
         python-version: 3.7
@@ -58,7 +54,6 @@ jobs:
       shell: bash
       run: |
         pdoc -f --html -o docs dagviz --template-dir doc-template
-        rm -rf docs/notebooks
         mkdir -p docs/notebooks
         cp notebooks/*.html docs/notebooks
 
@@ -66,6 +61,16 @@ jobs:
       shell: bash
       run: |
         pytest --cov dagviz --cov-branch --cov-report xml
+
+    - name: Deploy docs
+      uses: crazy-max/ghaction-github-pages@v2
+      with:
+        target_branch: gh-pages
+        build_dir: docs
+        jekyll: false
+        dry_run: false
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Publish distribution to Test PyPI
       uses: pypa/gh-action-pypi-publish@master
