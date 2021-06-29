@@ -2,7 +2,7 @@ name: Build
 
 on:
   pull_request:
-    types: [opened, reopened]
+    types: [opened, reopened, synchronize]
 
 jobs:
   build:
@@ -11,10 +11,6 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/checkout@v2
-      with:
-        ref: gh-pages
-        path: docs
 
     - uses: actions/setup-python@v1
       with:
@@ -53,7 +49,16 @@ jobs:
     - name: Build docs
       shell: bash
       run: |
-        pdoc -f --html -o docs dagviz
-        rm -rf docs/notebooks
+        pdoc -f --html -o docs dagviz --template-dir doc-template
         mkdir -p docs/notebooks
         cp notebooks/*.html docs/notebooks
+
+    - name: Deploy docs
+      uses: crazy-max/ghaction-github-pages@v2
+      with:
+        target_branch: gh-pages
+        build_dir: docs
+        jekyll: false
+        dry_run: true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

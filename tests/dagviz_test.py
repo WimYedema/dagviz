@@ -50,8 +50,8 @@ class DagvizTest(unittest.TestCase):
         self.assertTrue(r.startswith("<svg"))
         self.assertTrue(r.endswith("</svg>"))
 
-    def test_DAG(self):
-        G = dagviz.DAG()
+    def test_Metro(self):
+        G = nx.DiGraph()
         for i in range(5):
             G.add_node(f"n{i}")
         G.add_edge(f"n0", f"n1")
@@ -60,6 +60,6 @@ class DagvizTest(unittest.TestCase):
         G.add_edge(f"n1", f"n3")
         G.add_edge(f"n2", f"n3")
         G.add_edge(f"n3", f"n4")
-        r = G._repr_html_()
+        r = dagviz.Metro(G)._repr_html_()
         self.assertTrue(r.startswith("<svg"))
         self.assertTrue(r.endswith("</svg>"))
