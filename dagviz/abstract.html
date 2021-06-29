@@ -1,0 +1,936 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.2" />
+<title>dagviz.abstract API documentation</title>
+<meta name="description" content="Abstract table-like representation of a DAG visualization …" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>dagviz.abstract</code></h1>
+</header>
+<section id="section-intro">
+<p>Abstract table-like representation of a DAG visualization.</p>
+<p>Like a table, a DAG visualization has a number of rows. Each row has a
+number of columns, but empty columns are not represented in the row.
+Each cell (column, row) will have information regarding:</p>
+<ul>
+<li>whether it contains a node</li>
+<li>whether it contains an input for the node on this row</li>
+<li>what the color is of the item in this cell</li>
+<li>how many successor are remaining for the active node in this column</li>
+</ul>
+<p>This information can later be used to render the plot.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;
+Abstract table-like representation of a DAG visualization.
+
+Like a table, a DAG visualization has a number of rows. Each row has a
+number of columns, but empty columns are not represented in the row.
+Each cell (column, row) will have information regarding:
+
+* whether it contains a node
+* whether it contains an input for the node on this row
+* what the color is of the item in this cell
+* how many successor are remaining for the active node in this column
+
+This information can later be used to render the plot.
+&#34;&#34;&#34;
+from abc import ABC, abstractmethod
+from dataclasses import dataclass, field
+from typing import Any, Dict, Iterator, List, Mapping, Tuple
+
+
+class iRowBuilder(ABC):
+    &#34;&#34;&#34;
+    Interface for mapping nodes to columns.
+    &#34;&#34;&#34;
+
+    @abstractmethod
+    def map_node(self, nd: Any) -&gt; Tuple[int, int]:
+        &#34;&#34;&#34;
+        Assign a new node to a column.
+
+        Args:
+            nd: the node to add
+        Returns:
+            (column, color) of the node.
+        &#34;&#34;&#34;
+        ...
+
+    @abstractmethod
+    def unmap_node(self, nd: Any) -&gt; None:
+        &#34;&#34;&#34;
+        Remove a node, freeing the column for new nodes.
+
+        Args:
+            nd: the node to remove
+        &#34;&#34;&#34;
+        ...
+
+    @abstractmethod
+    def node_column(self, nd: Any) -&gt; int:
+        &#34;&#34;&#34;
+        Fetch the column that a node has been mapped to.
+
+        Args:
+            nd: A mapped node
+        Returns:
+            The column number the node was assigned to.
+        &#34;&#34;&#34;
+        ...
+
+
+class AbstractColumn:
+    &#34;Column information for a single row.&#34;
+
+    column: int
+    &#34;The column number, can be positive and negative.&#34;
+
+    start_row: &#34;AbstractRow&#34;
+    &#34;The row that contains the active node.&#34;
+
+    next_row: &#34;AbstractRow&#34;
+    &#34;The value of start_row for the next row.&#34;
+
+    color: int
+    &#34;The color number for the item in this column.&#34;
+
+    remaining: int
+    &#34;The number of remaining successors for the node in `start_row`.&#34;
+
+    is_input: bool
+    &#34;Does this (column, row) contain an input?&#34;
+
+    is_node: bool
+    &#34;Does this (column, row) contain a node?&#34;
+
+    @property
+    def is_last(self) -&gt; bool:
+        &#34;Is this the last successor of the node in `start_row`&#34;
+        return self.remaining == 0
+
+    def __init__(
+        self, column: int, row: &#34;AbstractRow&#34;, color: int = 0, remaining: int = 0
+    ):
+        self.column = column
+        self.start_row = row
+        self.next_row = row
+        self.color = color
+        self.remaining = remaining
+        self.is_input = False
+        self.is_node = False
+
+    @staticmethod
+    def copy_from_last(other: &#34;AbstractColumn&#34;) -&gt; &#34;AbstractColumn&#34;:
+        &#34;copy relevant column information from the previous row&#34;
+        return AbstractColumn(
+            other.column, other.next_row, other.color, other.remaining
+        )
+
+
+class AbstractRow:
+    &#34;&#34;&#34;
+    An abstract row containing a single (labeled) node, an arbitrary number
+    of inputs, and an arbitrary number of edges.
+
+    A row is iterable, iterating over the columns from left to right.
+    &#34;&#34;&#34;
+
+    _builder: iRowBuilder
+    row: int
+    &#34;The 0-based index of this row&#34;
+
+    columns: Dict[int, AbstractColumn]
+    &#34;The columns in this row. The keys are integers, but can have arbitrary values, smaller integers are on the left.&#34;
+
+    label: str
+    &#34;The label of the node on this row.&#34;
+
+    def __iter__(self) -&gt; Iterator[AbstractColumn]:
+        for col in sorted(self.columns.values(), key=lambda c: c.column):
+            yield col
+
+    def __init__(
+        self,
+        builder: iRowBuilder,
+        row: int,
+        columns: Mapping[Any, AbstractColumn],
+        label: str,
+    ):
+        &#34;&#34;&#34;
+        Construct a new abstract row.
+
+        Args:
+            builder: interface to map nodes to columns
+            row:     the index of this row
+            columns: the columns of the previous node, or {}
+            label:   the label of the node on this row
+        &#34;&#34;&#34;
+        self._builder = builder
+        self.row = row
+        self.columns = {
+            k: AbstractColumn.copy_from_last(s)
+            for k, s in columns.items()
+            if s.remaining != 0
+        }
+        self.label = label
+
+    def add_input(self, pred: Any) -&gt; None:
+        &#34;&#34;&#34;
+        Add an input to the node on this row.
+
+        Args:
+            pred: a predecessor node of the node on this row
+        &#34;&#34;&#34;
+        col = self._builder.node_column(pred)
+        self.columns[col].is_input = True
+        self.columns[col].remaining -= 1
+        if self.columns[col].remaining == 0:
+            self._builder.unmap_node(pred)
+
+    def add_node(self, nd: Any, nsuccs: int) -&gt; None:
+        &#34;&#34;&#34;
+        Add the node of this row. This method must be called exactly once
+        for each row.
+
+        Args: nd:     the node, this is only used as identifier nsuccs: the
+            number of successors of `nd`
+        &#34;&#34;&#34;
+        col, color = self._builder.map_node(nd)
+        if col not in self.columns:
+            self.columns[col] = AbstractColumn(col, self)
+        self.columns[col].remaining = nsuccs
+        self.columns[col].color = color
+        self.columns[col].is_node = True
+        self.columns[col].next_row = self
+        if nsuccs == 0:
+            self._builder.unmap_node(nd)
+
+
+@dataclass
+class AbstractPlot(iRowBuilder):
+    &#34;&#34;&#34;
+    An abstract table-like visualization of a DAG.
+    &#34;&#34;&#34;
+
+    columns: range = range(0)
+    &#34;The range of columns present in the rows. Does not need to start at 0.&#34;
+
+    colors: int = 0
+    &#34;The number of colors in this plot.&#34;
+
+    rows: List[&#34;AbstractRow&#34;] = field(default_factory=list)
+    &#34;The rows of this visualization.&#34;
+
+    _gaps: List[int] = field(default_factory=list)
+    _mapping: Dict[Any, int] = field(default_factory=dict)
+
+    def add_row(self, label: str) -&gt; AbstractRow:
+        &#34;&#34;&#34;
+        Add a new row to the bottom of this visualization.
+
+        Args:
+            label: the label of the node in this row.
+        Returns:
+            The AbstractRow that was added.
+        &#34;&#34;&#34;
+        index = len(self.rows)
+        if index == 0:
+            row = AbstractRow(self, 0, {}, label)
+        else:
+            row = AbstractRow(self, index, self.rows[-1].columns, label)
+        self.rows.append(row)
+        return row
+
+    def map_node(self, nd: Any) -&gt; Tuple[int, int]:
+        if len(self._gaps) == 0:
+            col = self.columns.start
+            self.columns = range(self.columns.start - 1, self.columns.stop)
+        else:
+            col = self._gaps.pop()
+        self._mapping[nd] = col
+        self.colors += 1
+        return col, self.colors - 1
+
+    def unmap_node(self, nd: Any) -&gt; None:
+        col = self._mapping[nd]
+        self._gaps.append(col)
+
+    def node_column(self, nd: Any) -&gt; int:
+        return self._mapping[nd]</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="dagviz.abstract.AbstractColumn"><code class="flex name class">
+<span>class <span class="ident">AbstractColumn</span></span>
+<span>(</span><span>column: int, row: <a title="dagviz.abstract.AbstractRow" href="#dagviz.abstract.AbstractRow">AbstractRow</a>, color: int = 0, remaining: int = 0)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Column information for a single row.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class AbstractColumn:
+    &#34;Column information for a single row.&#34;
+
+    column: int
+    &#34;The column number, can be positive and negative.&#34;
+
+    start_row: &#34;AbstractRow&#34;
+    &#34;The row that contains the active node.&#34;
+
+    next_row: &#34;AbstractRow&#34;
+    &#34;The value of start_row for the next row.&#34;
+
+    color: int
+    &#34;The color number for the item in this column.&#34;
+
+    remaining: int
+    &#34;The number of remaining successors for the node in `start_row`.&#34;
+
+    is_input: bool
+    &#34;Does this (column, row) contain an input?&#34;
+
+    is_node: bool
+    &#34;Does this (column, row) contain a node?&#34;
+
+    @property
+    def is_last(self) -&gt; bool:
+        &#34;Is this the last successor of the node in `start_row`&#34;
+        return self.remaining == 0
+
+    def __init__(
+        self, column: int, row: &#34;AbstractRow&#34;, color: int = 0, remaining: int = 0
+    ):
+        self.column = column
+        self.start_row = row
+        self.next_row = row
+        self.color = color
+        self.remaining = remaining
+        self.is_input = False
+        self.is_node = False
+
+    @staticmethod
+    def copy_from_last(other: &#34;AbstractColumn&#34;) -&gt; &#34;AbstractColumn&#34;:
+        &#34;copy relevant column information from the previous row&#34;
+        return AbstractColumn(
+            other.column, other.next_row, other.color, other.remaining
+        )</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="dagviz.abstract.AbstractColumn.color"><code class="name">var <span class="ident">color</span> : int</code></dt>
+<dd>
+<div class="desc"><p>The color number for the item in this column.</p></div>
+</dd>
+<dt id="dagviz.abstract.AbstractColumn.column"><code class="name">var <span class="ident">column</span> : int</code></dt>
+<dd>
+<div class="desc"><p>The column number, can be positive and negative.</p></div>
+</dd>
+<dt id="dagviz.abstract.AbstractColumn.is_input"><code class="name">var <span class="ident">is_input</span> : bool</code></dt>
+<dd>
+<div class="desc"><p>Does this (column, row) contain an input?</p></div>
+</dd>
+<dt id="dagviz.abstract.AbstractColumn.is_node"><code class="name">var <span class="ident">is_node</span> : bool</code></dt>
+<dd>
+<div class="desc"><p>Does this (column, row) contain a node?</p></div>
+</dd>
+<dt id="dagviz.abstract.AbstractColumn.next_row"><code class="name">var <span class="ident">next_row</span> : <a title="dagviz.abstract.AbstractRow" href="#dagviz.abstract.AbstractRow">AbstractRow</a></code></dt>
+<dd>
+<div class="desc"><p>The value of start_row for the next row.</p></div>
+</dd>
+<dt id="dagviz.abstract.AbstractColumn.remaining"><code class="name">var <span class="ident">remaining</span> : int</code></dt>
+<dd>
+<div class="desc"><p>The number of remaining successors for the node in <code>start_row</code>.</p></div>
+</dd>
+<dt id="dagviz.abstract.AbstractColumn.start_row"><code class="name">var <span class="ident">start_row</span> : <a title="dagviz.abstract.AbstractRow" href="#dagviz.abstract.AbstractRow">AbstractRow</a></code></dt>
+<dd>
+<div class="desc"><p>The row that contains the active node.</p></div>
+</dd>
+</dl>
+<h3>Static methods</h3>
+<dl>
+<dt id="dagviz.abstract.AbstractColumn.copy_from_last"><code class="name flex">
+<span>def <span class="ident">copy_from_last</span></span>(<span>other: <a title="dagviz.abstract.AbstractColumn" href="#dagviz.abstract.AbstractColumn">AbstractColumn</a>) ‑> <a title="dagviz.abstract.AbstractColumn" href="#dagviz.abstract.AbstractColumn">AbstractColumn</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>copy relevant column information from the previous row</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def copy_from_last(other: &#34;AbstractColumn&#34;) -&gt; &#34;AbstractColumn&#34;:
+    &#34;copy relevant column information from the previous row&#34;
+    return AbstractColumn(
+        other.column, other.next_row, other.color, other.remaining
+    )</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="dagviz.abstract.AbstractColumn.is_last"><code class="name">var <span class="ident">is_last</span> : bool</code></dt>
+<dd>
+<div class="desc"><p>Is this the last successor of the node in <code>start_row</code></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def is_last(self) -&gt; bool:
+    &#34;Is this the last successor of the node in `start_row`&#34;
+    return self.remaining == 0</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="dagviz.abstract.AbstractPlot"><code class="flex name class">
+<span>class <span class="ident">AbstractPlot</span></span>
+<span>(</span><span>columns: range = range(0, 0), colors: int = 0, rows: List[ForwardRef('<a title="dagviz.abstract.AbstractRow" href="#dagviz.abstract.AbstractRow">AbstractRow</a>')] = &lt;factory&gt;)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>An abstract table-like visualization of a DAG.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class AbstractPlot(iRowBuilder):
+    &#34;&#34;&#34;
+    An abstract table-like visualization of a DAG.
+    &#34;&#34;&#34;
+
+    columns: range = range(0)
+    &#34;The range of columns present in the rows. Does not need to start at 0.&#34;
+
+    colors: int = 0
+    &#34;The number of colors in this plot.&#34;
+
+    rows: List[&#34;AbstractRow&#34;] = field(default_factory=list)
+    &#34;The rows of this visualization.&#34;
+
+    _gaps: List[int] = field(default_factory=list)
+    _mapping: Dict[Any, int] = field(default_factory=dict)
+
+    def add_row(self, label: str) -&gt; AbstractRow:
+        &#34;&#34;&#34;
+        Add a new row to the bottom of this visualization.
+
+        Args:
+            label: the label of the node in this row.
+        Returns:
+            The AbstractRow that was added.
+        &#34;&#34;&#34;
+        index = len(self.rows)
+        if index == 0:
+            row = AbstractRow(self, 0, {}, label)
+        else:
+            row = AbstractRow(self, index, self.rows[-1].columns, label)
+        self.rows.append(row)
+        return row
+
+    def map_node(self, nd: Any) -&gt; Tuple[int, int]:
+        if len(self._gaps) == 0:
+            col = self.columns.start
+            self.columns = range(self.columns.start - 1, self.columns.stop)
+        else:
+            col = self._gaps.pop()
+        self._mapping[nd] = col
+        self.colors += 1
+        return col, self.colors - 1
+
+    def unmap_node(self, nd: Any) -&gt; None:
+        col = self._mapping[nd]
+        self._gaps.append(col)
+
+    def node_column(self, nd: Any) -&gt; int:
+        return self._mapping[nd]</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="dagviz.abstract.iRowBuilder" href="#dagviz.abstract.iRowBuilder">iRowBuilder</a></li>
+<li>abc.ABC</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="dagviz.abstract.AbstractPlot.colors"><code class="name">var <span class="ident">colors</span> : int</code></dt>
+<dd>
+<div class="desc"><p>The number of colors in this plot.</p></div>
+</dd>
+<dt id="dagviz.abstract.AbstractPlot.columns"><code class="name">var <span class="ident">columns</span> : range</code></dt>
+<dd>
+<div class="desc"><p>The range of columns present in the rows. Does not need to start at 0.</p></div>
+</dd>
+<dt id="dagviz.abstract.AbstractPlot.rows"><code class="name">var <span class="ident">rows</span> : List[<a title="dagviz.abstract.AbstractRow" href="#dagviz.abstract.AbstractRow">AbstractRow</a>]</code></dt>
+<dd>
+<div class="desc"><p>The rows of this visualization.</p></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="dagviz.abstract.AbstractPlot.add_row"><code class="name flex">
+<span>def <span class="ident">add_row</span></span>(<span>self, label: str) ‑> <a title="dagviz.abstract.AbstractRow" href="#dagviz.abstract.AbstractRow">AbstractRow</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Add a new row to the bottom of this visualization.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>label</code></strong></dt>
+<dd>the label of the node in this row.</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>The AbstractRow that was added.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_row(self, label: str) -&gt; AbstractRow:
+    &#34;&#34;&#34;
+    Add a new row to the bottom of this visualization.
+
+    Args:
+        label: the label of the node in this row.
+    Returns:
+        The AbstractRow that was added.
+    &#34;&#34;&#34;
+    index = len(self.rows)
+    if index == 0:
+        row = AbstractRow(self, 0, {}, label)
+    else:
+        row = AbstractRow(self, index, self.rows[-1].columns, label)
+    self.rows.append(row)
+    return row</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="dagviz.abstract.iRowBuilder" href="#dagviz.abstract.iRowBuilder">iRowBuilder</a></b></code>:
+<ul class="hlist">
+<li><code><a title="dagviz.abstract.iRowBuilder.map_node" href="#dagviz.abstract.iRowBuilder.map_node">map_node</a></code></li>
+<li><code><a title="dagviz.abstract.iRowBuilder.node_column" href="#dagviz.abstract.iRowBuilder.node_column">node_column</a></code></li>
+<li><code><a title="dagviz.abstract.iRowBuilder.unmap_node" href="#dagviz.abstract.iRowBuilder.unmap_node">unmap_node</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="dagviz.abstract.AbstractRow"><code class="flex name class">
+<span>class <span class="ident">AbstractRow</span></span>
+<span>(</span><span>builder: <a title="dagviz.abstract.iRowBuilder" href="#dagviz.abstract.iRowBuilder">iRowBuilder</a>, row: int, columns: Mapping[Any, <a title="dagviz.abstract.AbstractColumn" href="#dagviz.abstract.AbstractColumn">AbstractColumn</a>], label: str)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>An abstract row containing a single (labeled) node, an arbitrary number
+of inputs, and an arbitrary number of edges.</p>
+<p>A row is iterable, iterating over the columns from left to right.</p>
+<p>Construct a new abstract row.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>builder</code></strong></dt>
+<dd>interface to map nodes to columns</dd>
+<dt><strong><code>row</code></strong></dt>
+<dd>
+<p>the index of this row</p>
+</dd>
+<dt><strong><code>columns</code></strong></dt>
+<dd>the columns of the previous node, or {}</dd>
+<dt><strong><code>label</code></strong></dt>
+<dd>the label of the node on this row</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class AbstractRow:
+    &#34;&#34;&#34;
+    An abstract row containing a single (labeled) node, an arbitrary number
+    of inputs, and an arbitrary number of edges.
+
+    A row is iterable, iterating over the columns from left to right.
+    &#34;&#34;&#34;
+
+    _builder: iRowBuilder
+    row: int
+    &#34;The 0-based index of this row&#34;
+
+    columns: Dict[int, AbstractColumn]
+    &#34;The columns in this row. The keys are integers, but can have arbitrary values, smaller integers are on the left.&#34;
+
+    label: str
+    &#34;The label of the node on this row.&#34;
+
+    def __iter__(self) -&gt; Iterator[AbstractColumn]:
+        for col in sorted(self.columns.values(), key=lambda c: c.column):
+            yield col
+
+    def __init__(
+        self,
+        builder: iRowBuilder,
+        row: int,
+        columns: Mapping[Any, AbstractColumn],
+        label: str,
+    ):
+        &#34;&#34;&#34;
+        Construct a new abstract row.
+
+        Args:
+            builder: interface to map nodes to columns
+            row:     the index of this row
+            columns: the columns of the previous node, or {}
+            label:   the label of the node on this row
+        &#34;&#34;&#34;
+        self._builder = builder
+        self.row = row
+        self.columns = {
+            k: AbstractColumn.copy_from_last(s)
+            for k, s in columns.items()
+            if s.remaining != 0
+        }
+        self.label = label
+
+    def add_input(self, pred: Any) -&gt; None:
+        &#34;&#34;&#34;
+        Add an input to the node on this row.
+
+        Args:
+            pred: a predecessor node of the node on this row
+        &#34;&#34;&#34;
+        col = self._builder.node_column(pred)
+        self.columns[col].is_input = True
+        self.columns[col].remaining -= 1
+        if self.columns[col].remaining == 0:
+            self._builder.unmap_node(pred)
+
+    def add_node(self, nd: Any, nsuccs: int) -&gt; None:
+        &#34;&#34;&#34;
+        Add the node of this row. This method must be called exactly once
+        for each row.
+
+        Args: nd:     the node, this is only used as identifier nsuccs: the
+            number of successors of `nd`
+        &#34;&#34;&#34;
+        col, color = self._builder.map_node(nd)
+        if col not in self.columns:
+            self.columns[col] = AbstractColumn(col, self)
+        self.columns[col].remaining = nsuccs
+        self.columns[col].color = color
+        self.columns[col].is_node = True
+        self.columns[col].next_row = self
+        if nsuccs == 0:
+            self._builder.unmap_node(nd)</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="dagviz.abstract.AbstractRow.columns"><code class="name">var <span class="ident">columns</span> : Dict[int, <a title="dagviz.abstract.AbstractColumn" href="#dagviz.abstract.AbstractColumn">AbstractColumn</a>]</code></dt>
+<dd>
+<div class="desc"><p>The columns in this row. The keys are integers, but can have arbitrary values, smaller integers are on the left.</p></div>
+</dd>
+<dt id="dagviz.abstract.AbstractRow.label"><code class="name">var <span class="ident">label</span> : str</code></dt>
+<dd>
+<div class="desc"><p>The label of the node on this row.</p></div>
+</dd>
+<dt id="dagviz.abstract.AbstractRow.row"><code class="name">var <span class="ident">row</span> : int</code></dt>
+<dd>
+<div class="desc"><p>The 0-based index of this row</p></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="dagviz.abstract.AbstractRow.add_input"><code class="name flex">
+<span>def <span class="ident">add_input</span></span>(<span>self, pred: Any) ‑> NoneType</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Add an input to the node on this row.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>pred</code></strong></dt>
+<dd>a predecessor node of the node on this row</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_input(self, pred: Any) -&gt; None:
+    &#34;&#34;&#34;
+    Add an input to the node on this row.
+
+    Args:
+        pred: a predecessor node of the node on this row
+    &#34;&#34;&#34;
+    col = self._builder.node_column(pred)
+    self.columns[col].is_input = True
+    self.columns[col].remaining -= 1
+    if self.columns[col].remaining == 0:
+        self._builder.unmap_node(pred)</code></pre>
+</details>
+</dd>
+<dt id="dagviz.abstract.AbstractRow.add_node"><code class="name flex">
+<span>def <span class="ident">add_node</span></span>(<span>self, nd: Any, nsuccs: int) ‑> NoneType</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Add the node of this row. This method must be called exactly once
+for each row.</p>
+<p>Args: nd:
+the node, this is only used as identifier nsuccs: the
+number of successors of <code>nd</code></p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_node(self, nd: Any, nsuccs: int) -&gt; None:
+    &#34;&#34;&#34;
+    Add the node of this row. This method must be called exactly once
+    for each row.
+
+    Args: nd:     the node, this is only used as identifier nsuccs: the
+        number of successors of `nd`
+    &#34;&#34;&#34;
+    col, color = self._builder.map_node(nd)
+    if col not in self.columns:
+        self.columns[col] = AbstractColumn(col, self)
+    self.columns[col].remaining = nsuccs
+    self.columns[col].color = color
+    self.columns[col].is_node = True
+    self.columns[col].next_row = self
+    if nsuccs == 0:
+        self._builder.unmap_node(nd)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="dagviz.abstract.iRowBuilder"><code class="flex name class">
+<span>class <span class="ident">iRowBuilder</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Interface for mapping nodes to columns.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class iRowBuilder(ABC):
+    &#34;&#34;&#34;
+    Interface for mapping nodes to columns.
+    &#34;&#34;&#34;
+
+    @abstractmethod
+    def map_node(self, nd: Any) -&gt; Tuple[int, int]:
+        &#34;&#34;&#34;
+        Assign a new node to a column.
+
+        Args:
+            nd: the node to add
+        Returns:
+            (column, color) of the node.
+        &#34;&#34;&#34;
+        ...
+
+    @abstractmethod
+    def unmap_node(self, nd: Any) -&gt; None:
+        &#34;&#34;&#34;
+        Remove a node, freeing the column for new nodes.
+
+        Args:
+            nd: the node to remove
+        &#34;&#34;&#34;
+        ...
+
+    @abstractmethod
+    def node_column(self, nd: Any) -&gt; int:
+        &#34;&#34;&#34;
+        Fetch the column that a node has been mapped to.
+
+        Args:
+            nd: A mapped node
+        Returns:
+            The column number the node was assigned to.
+        &#34;&#34;&#34;
+        ...</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>abc.ABC</li>
+</ul>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="dagviz.abstract.AbstractPlot" href="#dagviz.abstract.AbstractPlot">AbstractPlot</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="dagviz.abstract.iRowBuilder.map_node"><code class="name flex">
+<span>def <span class="ident">map_node</span></span>(<span>self, nd: Any) ‑> Tuple[int, int]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Assign a new node to a column.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>nd</code></strong></dt>
+<dd>the node to add</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>(column, color) of the node.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def map_node(self, nd: Any) -&gt; Tuple[int, int]:
+    &#34;&#34;&#34;
+    Assign a new node to a column.
+
+    Args:
+        nd: the node to add
+    Returns:
+        (column, color) of the node.
+    &#34;&#34;&#34;
+    ...</code></pre>
+</details>
+</dd>
+<dt id="dagviz.abstract.iRowBuilder.node_column"><code class="name flex">
+<span>def <span class="ident">node_column</span></span>(<span>self, nd: Any) ‑> int</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Fetch the column that a node has been mapped to.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>nd</code></strong></dt>
+<dd>A mapped node</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<p>The column number the node was assigned to.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def node_column(self, nd: Any) -&gt; int:
+    &#34;&#34;&#34;
+    Fetch the column that a node has been mapped to.
+
+    Args:
+        nd: A mapped node
+    Returns:
+        The column number the node was assigned to.
+    &#34;&#34;&#34;
+    ...</code></pre>
+</details>
+</dd>
+<dt id="dagviz.abstract.iRowBuilder.unmap_node"><code class="name flex">
+<span>def <span class="ident">unmap_node</span></span>(<span>self, nd: Any) ‑> NoneType</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Remove a node, freeing the column for new nodes.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>nd</code></strong></dt>
+<dd>the node to remove</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@abstractmethod
+def unmap_node(self, nd: Any) -&gt; None:
+    &#34;&#34;&#34;
+    Remove a node, freeing the column for new nodes.
+
+    Args:
+        nd: the node to remove
+    &#34;&#34;&#34;
+    ...</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<a href="./../index.html">DAGVIZ</a> &ndash; <a href="./index.html">API</a>
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="dagviz" href="index.html">dagviz</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="dagviz.abstract.AbstractColumn" href="#dagviz.abstract.AbstractColumn">AbstractColumn</a></code></h4>
+<ul class="two-column">
+<li><code><a title="dagviz.abstract.AbstractColumn.color" href="#dagviz.abstract.AbstractColumn.color">color</a></code></li>
+<li><code><a title="dagviz.abstract.AbstractColumn.column" href="#dagviz.abstract.AbstractColumn.column">column</a></code></li>
+<li><code><a title="dagviz.abstract.AbstractColumn.copy_from_last" href="#dagviz.abstract.AbstractColumn.copy_from_last">copy_from_last</a></code></li>
+<li><code><a title="dagviz.abstract.AbstractColumn.is_input" href="#dagviz.abstract.AbstractColumn.is_input">is_input</a></code></li>
+<li><code><a title="dagviz.abstract.AbstractColumn.is_last" href="#dagviz.abstract.AbstractColumn.is_last">is_last</a></code></li>
+<li><code><a title="dagviz.abstract.AbstractColumn.is_node" href="#dagviz.abstract.AbstractColumn.is_node">is_node</a></code></li>
+<li><code><a title="dagviz.abstract.AbstractColumn.next_row" href="#dagviz.abstract.AbstractColumn.next_row">next_row</a></code></li>
+<li><code><a title="dagviz.abstract.AbstractColumn.remaining" href="#dagviz.abstract.AbstractColumn.remaining">remaining</a></code></li>
+<li><code><a title="dagviz.abstract.AbstractColumn.start_row" href="#dagviz.abstract.AbstractColumn.start_row">start_row</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="dagviz.abstract.AbstractPlot" href="#dagviz.abstract.AbstractPlot">AbstractPlot</a></code></h4>
+<ul class="">
+<li><code><a title="dagviz.abstract.AbstractPlot.add_row" href="#dagviz.abstract.AbstractPlot.add_row">add_row</a></code></li>
+<li><code><a title="dagviz.abstract.AbstractPlot.colors" href="#dagviz.abstract.AbstractPlot.colors">colors</a></code></li>
+<li><code><a title="dagviz.abstract.AbstractPlot.columns" href="#dagviz.abstract.AbstractPlot.columns">columns</a></code></li>
+<li><code><a title="dagviz.abstract.AbstractPlot.rows" href="#dagviz.abstract.AbstractPlot.rows">rows</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="dagviz.abstract.AbstractRow" href="#dagviz.abstract.AbstractRow">AbstractRow</a></code></h4>
+<ul class="">
+<li><code><a title="dagviz.abstract.AbstractRow.add_input" href="#dagviz.abstract.AbstractRow.add_input">add_input</a></code></li>
+<li><code><a title="dagviz.abstract.AbstractRow.add_node" href="#dagviz.abstract.AbstractRow.add_node">add_node</a></code></li>
+<li><code><a title="dagviz.abstract.AbstractRow.columns" href="#dagviz.abstract.AbstractRow.columns">columns</a></code></li>
+<li><code><a title="dagviz.abstract.AbstractRow.label" href="#dagviz.abstract.AbstractRow.label">label</a></code></li>
+<li><code><a title="dagviz.abstract.AbstractRow.row" href="#dagviz.abstract.AbstractRow.row">row</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="dagviz.abstract.iRowBuilder" href="#dagviz.abstract.iRowBuilder">iRowBuilder</a></code></h4>
+<ul class="">
+<li><code><a title="dagviz.abstract.iRowBuilder.map_node" href="#dagviz.abstract.iRowBuilder.map_node">map_node</a></code></li>
+<li><code><a title="dagviz.abstract.iRowBuilder.node_column" href="#dagviz.abstract.iRowBuilder.node_column">node_column</a></code></li>
+<li><code><a title="dagviz.abstract.iRowBuilder.unmap_node" href="#dagviz.abstract.iRowBuilder.unmap_node">unmap_node</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+Copyright &copy; 2021 Wim Yedema
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+</footer>
+</body>
+</html>
