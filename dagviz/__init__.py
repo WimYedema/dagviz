@@ -67,11 +67,20 @@ def render_svg(
     return render(make_abstract_plot(G), style)
 
 
-class DAG(nx.DiGraph):
+class Metro:
     """
-    Wrapper around networkx Graph that will render the graph as an SVG in
+    Render a topological ordering of a DAG using the "metro" style in
     jupyter notebooks.
+
+    Args:
+        G: directed acyclic graph to render
     """
 
+    def __init__(self, G: nx.DiGraph):
+        self.graph = G
+
     def _repr_html_(self) -> str:
-        return render_svg(self)
+        return render_svg(self.graph)
+
+
+from .dagre import Dagre

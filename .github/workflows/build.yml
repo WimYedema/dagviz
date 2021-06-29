@@ -53,7 +53,7 @@ jobs:
     - name: Build docs
       shell: bash
       run: |
-        pdoc -f --html -o docs dagviz
+        pdoc -f --html -o docs dagviz --template-dir doc-template
         rm -rf docs/notebooks
         mkdir -p docs/notebooks
         cp notebooks/*.html docs/notebooks
