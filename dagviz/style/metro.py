@@ -144,7 +144,7 @@ class _Style(iStyle):
         return self.coord(xy, (-1, 0))
 
     def place_node(self, at: Tuple[int, int], color: int, label: str) -> None:
-        node_id = "N"+re.sub(r"[^0-9a-zA-Z_-]+","", label)
+        node_id = "N" + re.sub(r"[^0-9a-zA-Z_-]+", "", label)
         self.nodes.add(
             self.d.circle(
                 self.coord(at),
