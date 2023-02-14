@@ -1,12 +1,14 @@
 """
 Metro is the default, and currently only, style for drawing DAGs.
 """
-from dagviz.istyle import iStyle
 import math
+import re
 from dataclasses import dataclass
 from typing import Any, Callable, Optional, Sequence, Tuple
 
 import svgwrite as svg
+
+from dagviz.istyle import iStyle
 
 from .colors import palette
 
@@ -141,11 +143,13 @@ class _Style(iStyle):
     def left(self, xy: Tuple[int, int]) -> _XY:
         return self.coord(xy, (-1, 0))
 
-    def place_node(self, at: Tuple[int, int], color: int) -> None:
+    def place_node(self, at: Tuple[int, int], color: int, label: str) -> None:
+        node_id = "N"+re.sub(r"[^0-9a-zA-Z_-]+","", label)
         self.nodes.add(
             self.d.circle(
                 self.coord(at),
                 self.config.node_radius,
+                id=node_id,
                 fill=self.config.node_fill or self.colors[color],
                 stroke=self.config.node_stroke,
                 stroke_width=self.config.node_stroke_width,

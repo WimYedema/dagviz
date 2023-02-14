@@ -24,13 +24,14 @@ class iStyle(ABC):
         ...
 
     @abstractmethod
-    def place_node(self, at: Tuple[int, int], color: int) -> None:
+    def place_node(self, at: Tuple[int, int], color: int, label: str) -> None:
         """
         Place a node on the plot.
 
         Args:
             at:    The (column, row) coordinate of the node
             color: The color number to use for this node
+            label: The label of the node, can be used to generate an SVG id
         """
         ...
 
