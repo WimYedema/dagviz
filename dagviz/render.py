@@ -28,7 +28,7 @@ def render(plot: AbstractPlot, styler: Callable[..., iStyle]) -> str:
             curpos = (col.column, row.row)
             if col.is_node:
                 nodepos = curpos
-                style.place_node(curpos, col.color)
+                style.place_node(curpos, col.color, row.label)
                 if len(arcs) != 0:
                     style.place_left_hline(
                         (arcs[0].column, row.row), curpos, arcs[0].color
