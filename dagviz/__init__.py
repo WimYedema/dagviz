@@ -2,11 +2,11 @@
 DAGVIZ provides a simple visualization of Directed Acyclic Graphs.
 """
 try:
-    import importlib.metadata as importlib_metadata # type: ignore
+    import importlib.metadata as importlib_metadata  # type: ignore
 except ModuleNotFoundError:
     import importlib_metadata  # type: ignore
 
-__version__ = importlib_metadata.version(__name__)  # type: ignore
+__version__ = importlib_metadata.version(__name__)
 
 from typing import Any, Callable, Sequence, Union
 
