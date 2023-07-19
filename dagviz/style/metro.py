@@ -4,7 +4,7 @@ Metro is the default, and currently only, style for drawing DAGs.
 import math
 import re
 from dataclasses import dataclass
-from typing import Any, Callable, Optional, Sequence, Tuple
+from typing import Any, Callable, Optional, Sequence, Tuple, Union
 
 import svgwrite as svg
 
@@ -61,6 +61,9 @@ class StyleConfig:
     "The line width of an edge"
 
     label_font_family: str = "sans-serif"
+    "The font family of the label"
+
+    label_font_size: Union[str,float] = "inherit"
     "The font family of the label"
 
     label_arrow_stroke: str = "lightgrey"
@@ -246,6 +249,7 @@ class _Style(iStyle):
                 self.coord(at),
                 dominant_baseline="middle",
                 font_family=self.config.label_font_family,
+                font_size=self.config.label_font_size,
             )
         )
         self.background.add(
