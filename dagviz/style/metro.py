@@ -63,7 +63,7 @@ class StyleConfig:
     label_font_family: str = "sans-serif"
     "The font family of the label"
 
-    label_font_size: Union[str,float] = "inherit"
+    label_font_size: Union[str, float] = "inherit"
     "The font family of the label"
 
     label_arrow_stroke: str = "lightgrey"
