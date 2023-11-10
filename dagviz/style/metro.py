@@ -23,7 +23,7 @@ def _arc(
     clockwise: bool = True,
     **kwargs: Any,
 ) -> Any:
-    """ Adds an arc that bulges to the right as it moves from p0 to p1 """
+    """Adds an arc that bulges to the right as it moves from p0 to p1"""
     x0 = p0[0]
     y0 = p0[1]
     x1 = p1[0] - p0[0]
@@ -75,6 +75,9 @@ class StyleConfig:
     arc_radius: float = 15.0
     "The radius of an input arc"
 
+    minimal_width: float = 500
+    "The minimal width of the SVG view box"
+
 
 class _Style(iStyle):
     d: svg.Drawing
@@ -123,7 +126,7 @@ class _Style(iStyle):
             self._top - self.config.scale,
             self._left - self.config.scale,
             self._bottom + self.config.scale,
-            max(500, self._right * 2),
+            max(self.config.minimal_width, self._right * 2),
         )
 
     def coord(self, xy: Tuple[int, int], dxy: _XY = (0.0, 0.0)) -> _XY:
