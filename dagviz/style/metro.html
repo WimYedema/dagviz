@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.2" />
+<title>dagviz.style.metro API documentation</title>
+<meta name="description" content="Metro is the default, and currently only, style for drawing DAGs." />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>dagviz.style.metro</code></h1>
+</header>
+<section id="section-intro">
+<p>Metro is the default, and currently only, style for drawing DAGs.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34;
+Metro is the default, and currently only, style for drawing DAGs.
+&#34;&#34;&#34;
+import math
+import re
+from dataclasses import dataclass
+from typing import Any, Callable, Optional, Sequence, Tuple, Union
+
+import svgwrite as svg
+
+from dagviz.istyle import iStyle
+
+from .colors import palette
+
+_XY = Tuple[float, float]
+
+
+def _arc(
+    dwg: svg.Drawing,
+    p0: _XY,
+    p1: _XY,
+    radius: float,
+    clockwise: bool = True,
+    **kwargs: Any,
+) -&gt; Any:
+    &#34;&#34;&#34;Adds an arc that bulges to the right as it moves from p0 to p1&#34;&#34;&#34;
+    x0 = p0[0]
+    y0 = p0[1]
+    x1 = p1[0] - p0[0]
+    y1 = p1[1] - p0[1]
+    sweep = 1 if clockwise else 0
+    ellipseRotation = 0  # has no effect for circles
+    return dwg.path(
+        d=f&#34;M {x0},{y0} a{radius},{radius} {ellipseRotation} 0,{sweep} {x1},{y1}&#34;,
+        **kwargs,
+    )
+
+
+@dataclass
+class StyleConfig:
+    &#34;&#34;&#34;
+    Styling options for the metro style.
+    &#34;&#34;&#34;
+
+    scale: float = 10.0
+    &#34;The size of a single cell.&#34;
+
+    node_radius: float = 6.0
+    &#34;The size of a node.&#34;
+
+    node_fill: Optional[str] = None
+    &#34;Optional. The fill color of the node. Colors will be assigned automatically if unspecified.&#34;
+
+    node_stroke: str = &#34;white&#34;
+    &#34;The border color of a node&#34;
+
+    node_stroke_width: float = 2.0
+    &#34;The border width of a node&#34;
+
+    edge_stroke_width: float = 2.0
+    &#34;The line width of an edge&#34;
+
+    label_font_family: str = &#34;sans-serif&#34;
+    &#34;The font family of the label&#34;
+
+    label_font_size: Union[str, float] = &#34;inherit&#34;
+    &#34;The font family of the label&#34;
+
+    label_arrow_stroke: str = &#34;lightgrey&#34;
+    &#34;The line color for the line from the label to the node&#34;
+
+    label_arrow_dash_array: str = &#34;2&#34;
+    &#34;The dashing style for the line from the label to the node&#34;
+
+    arc_radius: float = 15.0
+    &#34;The radius of an input arc&#34;
+
+    minimal_width: float = 500
+    &#34;The minimal width of the SVG view box&#34;
+
+
+class _Style(iStyle):
+    d: svg.Drawing
+    background: svg.container.Group
+    edges: svg.container.Group
+    nodes: svg.container.Group
+    shift: int
+    colors: Sequence[str]
+    box_top: float
+    box_left: float
+    box_bottom: float
+    box_right: float
+
+    def __init__(
+        self,
+        config: StyleConfig,
+        colors: int,
+        shift: int = 0,
+    ):
+        self.d = svg.Drawing()
+        self.background = self.d.g()
+        self.vlines = self.d.g()
+        self.hline_borders = self.d.g()
+        self.hlines = self.d.g()
+        self.nodes = self.d.g()
+        self.d.add(self.background)
+        self.d.add(self.vlines)
+        self.d.add(self.hline_borders)
+        self.d.add(self.hlines)
+        self.d.add(self.nodes)
+        self._top = math.inf
+        self._left = math.inf
+        self._bottom = -math.inf
+        self._right = -math.inf
+        self.config = config
+        self.shift = shift
+        self.colors = palette(colors)
+
+    def dumps(self) -&gt; str:
+        t, l, b, r = self._box()
+        self.d.viewbox(l, t, r - l, b - t)
+        return self.d.tostring()
+
+    def _box(self) -&gt; Tuple[float, float, float, float]:
+        return (
+            self._top - self.config.scale,
+            self._left - self.config.scale,
+            self._bottom + self.config.scale,
+            max(self.config.minimal_width, self._right * 2),
+        )
+
+    def coord(self, xy: Tuple[int, int], dxy: _XY = (0.0, 0.0)) -&gt; _XY:
+        x = self.config.scale * (xy[0] + self.shift) * 2 + self.config.arc_radius * (
+            dxy[0] + 1
+        )
+        y = self.config.scale * xy[1] * 2 + self.config.arc_radius * (dxy[1] + 1)
+        self._top = min(y, self._top)
+        self._left = min(x, self._left)
+        self._bottom = max(y, self._bottom)
+        self._right = max(x, self._right)
+        return (x, y)
+
+    def top(self, xy: Tuple[int, int]) -&gt; _XY:
+        return self.coord(xy, (0, -1))
+
+    def right(self, xy: Tuple[int, int]) -&gt; _XY:
+        return self.coord(xy, (1, 0))
+
+    def left(self, xy: Tuple[int, int]) -&gt; _XY:
+        return self.coord(xy, (-1, 0))
+
+    def place_node(self, at: Tuple[int, int], color: int, label: str) -&gt; None:
+        node_id = &#34;N&#34; + re.sub(r&#34;[^0-9a-zA-Z_-]+&#34;, &#34;&#34;, label)
+        self.nodes.add(
+            self.d.circle(
+                self.coord(at),
+                self.config.node_radius,
+                id=node_id,
+                fill=self.config.node_fill or self.colors[color],
+                stroke=self.config.node_stroke,
+                stroke_width=self.config.node_stroke_width,
+            )
+        )
+
+    def _place_edge(
+        self, layer: svg.container.Group, a: _XY, b: _XY, color: int
+    ) -&gt; None:
+        layer.add(
+            self.d.line(
+                a,
+                b,
+                stroke_width=self.config.edge_stroke_width,
+                stroke=self.colors[color],
+            )
+        )
+
+    def _place_hline_border(self, a: _XY, b: _XY) -&gt; None:
+        self.hline_borders.add(
+            self.d.line(
+                a,
+                b,
+                stroke_width=self.config.edge_stroke_width
+                + 2 * min(self.config.edge_stroke_width, self.config.node_stroke_width),
+                stroke=&#34;white&#34;,
+            )
+        )
+
+    def place_left_hline(
+        self, left: Tuple[int, int], right: Tuple[int, int], color: int
+    ) -&gt; None:
+        a, b = self.right(left), self.coord(right)
+        self._place_hline_border(a, b)
+        self._place_edge(self.hlines, a, b, color)
+
+    def place_right_hline(
+        self, left: Tuple[int, int], right: Tuple[int, int], color: int
+    ) -&gt; None:
+        a, b = self.coord(left), self.left(right)
+        self._place_hline_border(a, b)
+        self._place_edge(self.hlines, a, b, color)
+
+    def place_vline_arc(
+        self, top: Tuple[int, int], bottom: Tuple[int, int], color: int
+    ) -&gt; None:
+        self._place_edge(self.vlines, self.coord(top), self.top(bottom), color)
+
+    def place_vline_node(
+        self, top: Tuple[int, int], bottom: Tuple[int, int], color: int
+    ) -&gt; None:
+        self._place_edge(self.vlines, self.coord(top), self.coord(bottom), color)
+
+    def place_left_arc(self, at: Tuple[int, int], color: int) -&gt; None:
+        center = self.coord(at)
+        a = (center[0], center[1] - self.config.arc_radius)
+        b = (center[0] - self.config.arc_radius, center[1])
+        self.hlines.add(
+            _arc(
+                self.d,
+                a,
+                b,
+                self.config.arc_radius,
+                clockwise=True,
+                stroke=self.colors[color],
+                stroke_width=self.config.edge_stroke_width,
+                fill=&#34;none&#34;,
+            )
+        )
+
+    def place_right_arc(self, at: Tuple[int, int], color: int) -&gt; None:
+        center = self.coord(at)
+        a = (center[0], center[1] - self.config.arc_radius)
+        b = (center[0] + self.config.arc_radius, center[1])
+        self.hlines.add(
+            _arc(
+                self.d,
+                a,
+                b,
+                self.config.arc_radius,
+                clockwise=False,
+                stroke=self.colors[color],
+                stroke_width=self.config.edge_stroke_width,
+                fill=&#34;none&#34;,
+            )
+        )
+
+    def place_label(
+        self, nodepos: Tuple[int, int], at: Tuple[int, int], label: str
+    ) -&gt; None:
+        self.nodes.add(
+            self.d.text(
+                label,
+                self.coord(at),
+                dominant_baseline=&#34;middle&#34;,
+                font_family=self.config.label_font_family,
+                font_size=self.config.label_font_size,
+            )
+        )
+        self.background.add(
+            self.d.line(
+                self.right(nodepos),
+                self.coord(at, (-0.4, 0.0)),
+                stroke=self.config.label_arrow_stroke,
+                stroke_dasharray=self.config.label_arrow_dash_array,
+            )
+        )
+
+
+def svg_renderer(config: StyleConfig = StyleConfig()) -&gt; Callable[..., iStyle]:
+    &#34;&#34;&#34;
+    Create a renderer with the specified style configuration.
+
+    Args:
+        config: the configuration of the metro style
+    &#34;&#34;&#34;
+
+    def builder(colors: int, shift: int = 0) -&gt; iStyle:
+        return _Style(config, colors, shift)
+
+    return builder</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="dagviz.style.metro.svg_renderer"><code class="name flex">
+<span>def <span class="ident">svg_renderer</span></span>(<span>config: <a title="dagviz.style.metro.StyleConfig" href="#dagviz.style.metro.StyleConfig">StyleConfig</a> = StyleConfig(scale=10.0, node_radius=6.0, node_fill=None, node_stroke='white', node_stroke_width=2.0, edge_stroke_width=2.0, label_font_family='sans-serif', label_font_size='inherit', label_arrow_stroke='lightgrey', label_arrow_dash_array='2', arc_radius=15.0, minimal_width=500)) ‑> Callable[..., <a title="dagviz.istyle.iStyle" href="../istyle.html#dagviz.istyle.iStyle">iStyle</a>]</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Create a renderer with the specified style configuration.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>config</code></strong></dt>
+<dd>the configuration of the metro style</dd>
+</dl></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def svg_renderer(config: StyleConfig = StyleConfig()) -&gt; Callable[..., iStyle]:
+    &#34;&#34;&#34;
+    Create a renderer with the specified style configuration.
+
+    Args:
+        config: the configuration of the metro style
+    &#34;&#34;&#34;
+
+    def builder(colors: int, shift: int = 0) -&gt; iStyle:
+        return _Style(config, colors, shift)
+
+    return builder</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="dagviz.style.metro.StyleConfig"><code class="flex name class">
+<span>class <span class="ident">StyleConfig</span></span>
+<span>(</span><span>scale: float = 10.0, node_radius: float = 6.0, node_fill: Union[str, NoneType] = None, node_stroke: str = 'white', node_stroke_width: float = 2.0, edge_stroke_width: float = 2.0, label_font_family: str = 'sans-serif', label_font_size: Union[str, float] = 'inherit', label_arrow_stroke: str = 'lightgrey', label_arrow_dash_array: str = '2', arc_radius: float = 15.0, minimal_width: float = 500)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Styling options for the metro style.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class StyleConfig:
+    &#34;&#34;&#34;
+    Styling options for the metro style.
+    &#34;&#34;&#34;
+
+    scale: float = 10.0
+    &#34;The size of a single cell.&#34;
+
+    node_radius: float = 6.0
+    &#34;The size of a node.&#34;
+
+    node_fill: Optional[str] = None
+    &#34;Optional. The fill color of the node. Colors will be assigned automatically if unspecified.&#34;
+
+    node_stroke: str = &#34;white&#34;
+    &#34;The border color of a node&#34;
+
+    node_stroke_width: float = 2.0
+    &#34;The border width of a node&#34;
+
+    edge_stroke_width: float = 2.0
+    &#34;The line width of an edge&#34;
+
+    label_font_family: str = &#34;sans-serif&#34;
+    &#34;The font family of the label&#34;
+
+    label_font_size: Union[str, float] = &#34;inherit&#34;
+    &#34;The font family of the label&#34;
+
+    label_arrow_stroke: str = &#34;lightgrey&#34;
+    &#34;The line color for the line from the label to the node&#34;
+
+    label_arrow_dash_array: str = &#34;2&#34;
+    &#34;The dashing style for the line from the label to the node&#34;
+
+    arc_radius: float = 15.0
+    &#34;The radius of an input arc&#34;
+
+    minimal_width: float = 500
+    &#34;The minimal width of the SVG view box&#34;</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="dagviz.style.metro.StyleConfig.arc_radius"><code class="name">var <span class="ident">arc_radius</span> : float</code></dt>
+<dd>
+<div class="desc"><p>The radius of an input arc</p></div>
+</dd>
+<dt id="dagviz.style.metro.StyleConfig.edge_stroke_width"><code class="name">var <span class="ident">edge_stroke_width</span> : float</code></dt>
+<dd>
+<div class="desc"><p>The line width of an edge</p></div>
+</dd>
+<dt id="dagviz.style.metro.StyleConfig.label_arrow_dash_array"><code class="name">var <span class="ident">label_arrow_dash_array</span> : str</code></dt>
+<dd>
+<div class="desc"><p>The dashing style for the line from the label to the node</p></div>
+</dd>
+<dt id="dagviz.style.metro.StyleConfig.label_arrow_stroke"><code class="name">var <span class="ident">label_arrow_stroke</span> : str</code></dt>
+<dd>
+<div class="desc"><p>The line color for the line from the label to the node</p></div>
+</dd>
+<dt id="dagviz.style.metro.StyleConfig.label_font_family"><code class="name">var <span class="ident">label_font_family</span> : str</code></dt>
+<dd>
+<div class="desc"><p>The font family of the label</p></div>
+</dd>
+<dt id="dagviz.style.metro.StyleConfig.label_font_size"><code class="name">var <span class="ident">label_font_size</span> : Union[str, float]</code></dt>
+<dd>
+<div class="desc"><p>The font family of the label</p></div>
+</dd>
+<dt id="dagviz.style.metro.StyleConfig.minimal_width"><code class="name">var <span class="ident">minimal_width</span> : float</code></dt>
+<dd>
+<div class="desc"><p>The minimal width of the SVG view box</p></div>
+</dd>
+<dt id="dagviz.style.metro.StyleConfig.node_fill"><code class="name">var <span class="ident">node_fill</span> : Union[str, NoneType]</code></dt>
+<dd>
+<div class="desc"><p>Optional. The fill color of the node. Colors will be assigned automatically if unspecified.</p></div>
+</dd>
+<dt id="dagviz.style.metro.StyleConfig.node_radius"><code class="name">var <span class="ident">node_radius</span> : float</code></dt>
+<dd>
+<div class="desc"><p>The size of a node.</p></div>
+</dd>
+<dt id="dagviz.style.metro.StyleConfig.node_stroke"><code class="name">var <span class="ident">node_stroke</span> : str</code></dt>
+<dd>
+<div class="desc"><p>The border color of a node</p></div>
+</dd>
+<dt id="dagviz.style.metro.StyleConfig.node_stroke_width"><code class="name">var <span class="ident">node_stroke_width</span> : float</code></dt>
+<dd>
+<div class="desc"><p>The border width of a node</p></div>
+</dd>
+<dt id="dagviz.style.metro.StyleConfig.scale"><code class="name">var <span class="ident">scale</span> : float</code></dt>
+<dd>
+<div class="desc"><p>The size of a single cell.</p></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<a href="./../../index.html">DAGVIZ</a> &ndash; <a href="./../index.html">API</a>
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="dagviz.style" href="index.html">dagviz.style</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="dagviz.style.metro.svg_renderer" href="#dagviz.style.metro.svg_renderer">svg_renderer</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="dagviz.style.metro.StyleConfig" href="#dagviz.style.metro.StyleConfig">StyleConfig</a></code></h4>
+<ul class="">
+<li><code><a title="dagviz.style.metro.StyleConfig.arc_radius" href="#dagviz.style.metro.StyleConfig.arc_radius">arc_radius</a></code></li>
+<li><code><a title="dagviz.style.metro.StyleConfig.edge_stroke_width" href="#dagviz.style.metro.StyleConfig.edge_stroke_width">edge_stroke_width</a></code></li>
+<li><code><a title="dagviz.style.metro.StyleConfig.label_arrow_dash_array" href="#dagviz.style.metro.StyleConfig.label_arrow_dash_array">label_arrow_dash_array</a></code></li>
+<li><code><a title="dagviz.style.metro.StyleConfig.label_arrow_stroke" href="#dagviz.style.metro.StyleConfig.label_arrow_stroke">label_arrow_stroke</a></code></li>
+<li><code><a title="dagviz.style.metro.StyleConfig.label_font_family" href="#dagviz.style.metro.StyleConfig.label_font_family">label_font_family</a></code></li>
+<li><code><a title="dagviz.style.metro.StyleConfig.label_font_size" href="#dagviz.style.metro.StyleConfig.label_font_size">label_font_size</a></code></li>
+<li><code><a title="dagviz.style.metro.StyleConfig.minimal_width" href="#dagviz.style.metro.StyleConfig.minimal_width">minimal_width</a></code></li>
+<li><code><a title="dagviz.style.metro.StyleConfig.node_fill" href="#dagviz.style.metro.StyleConfig.node_fill">node_fill</a></code></li>
+<li><code><a title="dagviz.style.metro.StyleConfig.node_radius" href="#dagviz.style.metro.StyleConfig.node_radius">node_radius</a></code></li>
+<li><code><a title="dagviz.style.metro.StyleConfig.node_stroke" href="#dagviz.style.metro.StyleConfig.node_stroke">node_stroke</a></code></li>
+<li><code><a title="dagviz.style.metro.StyleConfig.node_stroke_width" href="#dagviz.style.metro.StyleConfig.node_stroke_width">node_stroke_width</a></code></li>
+<li><code><a title="dagviz.style.metro.StyleConfig.scale" href="#dagviz.style.metro.StyleConfig.scale">scale</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+Copyright &copy; 2021 Wim Yedema
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+</footer>
+</body>
+</html>
