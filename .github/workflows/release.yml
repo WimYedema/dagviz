@@ -44,7 +44,7 @@ jobs:
     - name: Verify built artifact matches tag
       shell: bash
       run: |
-        tag=${GITHUB_REF#refs/tags/}
+        tag=${GITHUB_REF#refs/tags/v}
         built=$(ls dist | head -n1 || true)
         echo "Tag: $tag"
         echo "Built artifact: $built"
