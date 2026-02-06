@@ -18,49 +18,53 @@ jobs:
 
     - uses: actions/setup-python@v1
       with:
-        python-version: 3.7
-    - name: "Install poetry"
-      shell: bash
-      run: |
-        pip install -U pip
-        pip install poetry
+        python-version: 3.10
 
-    - name: "Set-up virtual env"
+    - name: "Install uv"
+      uses: astral-sh/setup-uv@v7
+
+    - name: "Install project (uv)"
       shell: bash
       run: |
-        export long_version=$(git describe --tags --abbrev=12)
-        export short_version=$(git describe --tags --abbrev=0)
-        # Make version pep0440 compliant
-        export pkg_version=${long_version/$short_version-/$short_version+}
-        poetry config virtualenvs.create false
-        poetry version ${pkg_version#v}
-        poetry install --no-root
+        uv sync --all-extras --dev
 
     - name: Static checks
       shell: bash
       run: |
-        black --check dagviz
-        mypy dagviz
-        flake8 dagviz
+        uv run black --check dagviz
+        uv run mypy dagviz
+        uv run flake8 dagviz
 
     - name: Build package
       shell: bash
       run: |
-        poetry build
-        poetry install
+        uv build
         echo "::set-output name=release-file::$(cd dist && echo *.gz)"
+
+    - name: Verify built artifact matches tag
+      shell: bash
+      run: |
+        tag=${GITHUB_REF#refs/tags/}
+        built=$(ls dist | head -n1 || true)
+        echo "Tag: $tag"
+        echo "Built artifact: $built"
+        if [ -z "$built" ] || [[ "$built" != *"$tag"* ]]; then
+          echo "::error::Built artifact does not include tag/version ($tag)"
+          exit 1
+        fi
+        echo "Artifact matches tag."
 
     - name: Build docs
       shell: bash
       run: |
-        pdoc -f --html -o docs dagviz --template-dir doc-template
+        uv run pdoc -f --html -o docs dagviz --template-dir doc-template
         mkdir -p docs/notebooks
         cp notebooks/*.html docs/notebooks
 
     - name: Test
       shell: bash
       run: |
-        pytest --cov dagviz --cov-branch --cov-report xml
+        uv run pytest --cov dagviz --cov-branch --cov-report xml
 
     - name: Deploy docs
       uses: crazy-max/ghaction-github-pages@v2
