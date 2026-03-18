@@ -1,6 +1,6 @@
 [project]
 name = "dagviz"
-version = "0.5.0"
+version = "0.6.0"
 description = "Visualization for DAGs"
 authors = [{ name = "Wim Yedema", email = "wim.yedema@gmail.com" }]
 requires-python = ">=3.10,<4"

@@ -64,7 +64,10 @@ class StyleConfig:
     "The font family of the label"
 
     label_font_size: Union[str, float] = "inherit"
-    "The font family of the label"
+    "The font size of the label"
+
+    label_font_color: str = "currentColor"
+    "The font color of the label"
 
     label_arrow_stroke: str = "lightgrey"
     "The line color for the line from the label to the node"
@@ -74,6 +77,9 @@ class StyleConfig:
 
     arc_radius: float = 15.0
     "The radius of an input arc"
+
+    bridge_color: str = "white"
+    "The color of the bridge that covers edges crossing other edges"
 
     minimal_width: float = 500
     "The minimal width of the SVG view box"
@@ -181,7 +187,7 @@ class _Style(iStyle):
                 b,
                 stroke_width=self.config.edge_stroke_width
                 + 2 * min(self.config.edge_stroke_width, self.config.node_stroke_width),
-                stroke="white",
+                stroke=self.config.bridge_color,
             )
         )
 
@@ -253,6 +259,7 @@ class _Style(iStyle):
                 dominant_baseline="middle",
                 font_family=self.config.label_font_family,
                 font_size=self.config.label_font_size,
+                fill=self.config.label_font_color,
             )
         )
         self.background.add(

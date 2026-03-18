@@ -3,7 +3,7 @@
 <html lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Unix lineage</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>issue-7</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7795,19 +7795,7 @@ a.anchor-link {
 </style>
 <!-- End of mermaid configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
-<main>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=0908c860">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Unix-lineage">Unix lineage<a class="anchor-link" href="#Unix-lineage">¶</a></h1><p>One of the stock examples of <a href="https://graphviz.readthedocs.io/en/stable/">graphviz</a> is the <a href="https://graphviz.readthedocs.io/en/stable/examples.html#unix-py">Unix lineage</a>. In this notebook we'll be visualizing that graph using DAGVIZ.</p>
-<h2 id="Construct-the-graph">Construct the graph<a class="anchor-link" href="#Construct-the-graph">¶</a></h2>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=227d6208">
+<main><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7815,14 +7803,16 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">dagviz</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dagre</span><span class="p">,</span> <span class="n">Metro</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">dagviz</span><span class="w"> </span><span class="kn">import</span> <span class="n">render_svg</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">dagviz.style.metro</span><span class="w"> </span><span class="kn">import</span> <span class="n">svg_renderer</span><span class="p">,</span> <span class="n">StyleConfig</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">HTML</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">networkx</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nx</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=f0f495d4">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7830,73 +7820,17 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In [2]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">u</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">()</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'5th Edition'</span><span class="p">,</span> <span class="s1">'6th Edition'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'5th Edition'</span><span class="p">,</span> <span class="s1">'PWB 1.0'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'6th Edition'</span><span class="p">,</span> <span class="s1">'LSX'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'6th Edition'</span><span class="p">,</span> <span class="s1">'1 BSD'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'6th Edition'</span><span class="p">,</span> <span class="s1">'Mini Unix'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'6th Edition'</span><span class="p">,</span> <span class="s1">'Wollongong'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'6th Edition'</span><span class="p">,</span> <span class="s1">'Interdata'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'Interdata'</span><span class="p">,</span> <span class="s1">'Unix/TS 3.0'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'Interdata'</span><span class="p">,</span> <span class="s1">'PWB 2.0'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'Interdata'</span><span class="p">,</span> <span class="s1">'7th Edition'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'7th Edition'</span><span class="p">,</span> <span class="s1">'8th Edition'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'7th Edition'</span><span class="p">,</span> <span class="s1">'32V'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'7th Edition'</span><span class="p">,</span> <span class="s1">'V7M'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'7th Edition'</span><span class="p">,</span> <span class="s1">'Ultrix-11'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'7th Edition'</span><span class="p">,</span> <span class="s1">'Xenix'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'7th Edition'</span><span class="p">,</span> <span class="s1">'UniPlus+'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'V7M'</span><span class="p">,</span> <span class="s1">'Ultrix-11'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'8th Edition'</span><span class="p">,</span> <span class="s1">'9th Edition'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'1 BSD'</span><span class="p">,</span> <span class="s1">'2 BSD'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'2 BSD'</span><span class="p">,</span> <span class="s1">'2.8 BSD'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'2.8 BSD'</span><span class="p">,</span> <span class="s1">'Ultrix-11'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'2.8 BSD'</span><span class="p">,</span> <span class="s1">'2.9 BSD'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'32V'</span><span class="p">,</span> <span class="s1">'3 BSD'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'3 BSD'</span><span class="p">,</span> <span class="s1">'4 BSD'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'4 BSD'</span><span class="p">,</span> <span class="s1">'4.1 BSD'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'4.1 BSD'</span><span class="p">,</span> <span class="s1">'4.2 BSD'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'4.1 BSD'</span><span class="p">,</span> <span class="s1">'2.8 BSD'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'4.1 BSD'</span><span class="p">,</span> <span class="s1">'8th Edition'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'4.2 BSD'</span><span class="p">,</span> <span class="s1">'4.3 BSD'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'4.2 BSD'</span><span class="p">,</span> <span class="s1">'Ultrix-32'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'PWB 1.0'</span><span class="p">,</span> <span class="s1">'PWB 1.2'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'PWB 1.0'</span><span class="p">,</span> <span class="s1">'USG 1.0'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'PWB 1.2'</span><span class="p">,</span> <span class="s1">'PWB 2.0'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'USG 1.0'</span><span class="p">,</span> <span class="s1">'CB Unix 1'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'USG 1.0'</span><span class="p">,</span> <span class="s1">'USG 2.0'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'CB Unix 1'</span><span class="p">,</span> <span class="s1">'CB Unix 2'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'CB Unix 2'</span><span class="p">,</span> <span class="s1">'CB Unix 3'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'CB Unix 3'</span><span class="p">,</span> <span class="s1">'Unix/TS++'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'CB Unix 3'</span><span class="p">,</span> <span class="s1">'PDP-11 Sys V'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'USG 2.0'</span><span class="p">,</span> <span class="s1">'USG 3.0'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'USG 3.0'</span><span class="p">,</span> <span class="s1">'Unix/TS 3.0'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'PWB 2.0'</span><span class="p">,</span> <span class="s1">'Unix/TS 3.0'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'Unix/TS 1.0'</span><span class="p">,</span> <span class="s1">'Unix/TS 3.0'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'Unix/TS 3.0'</span><span class="p">,</span> <span class="s1">'TS 4.0'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'Unix/TS++'</span><span class="p">,</span> <span class="s1">'TS 4.0'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'CB Unix 3'</span><span class="p">,</span> <span class="s1">'TS 4.0'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'TS 4.0'</span><span class="p">,</span> <span class="s1">'System V.0'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'System V.0'</span><span class="p">,</span> <span class="s1">'System V.2'</span><span class="p">)</span>
-<span class="n">u</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s1">'System V.2'</span><span class="p">,</span> <span class="s1">'System V.3'</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">DiGraph</span><span class="p">()</span>
+<span class="n">g</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">"a"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"A012345678901234567890123456789012345678901234567890123456789"</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="s2">"b"</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">"B012345678901234567890123456789012345678901234567890123456789"</span><span class="p">)</span>
+
+<span class="n">g</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 </div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=3a96f4ba">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Visualize-with-Dagre">Visualize with Dagre<a class="anchor-link" href="#Visualize-with-Dagre">¶</a></h2>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=e908d179">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7904,7 +7838,7 @@ a.anchor-link {
 <div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">Dagre</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">HTML</span><span class="p">(</span><span class="n">render_svg</span><span class="p">(</span><span class="n">g</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="n">svg_renderer</span><span class="p">(</span><span class="n">StyleConfig</span><span class="p">(</span><span class="n">minimal_width</span><span class="o">=</span><span class="mi">700</span><span class="p">))))</span>
 </pre></div>
 </div>
 </div>
@@ -7916,168 +7850,13 @@ a.anchor-link {
 <div class="jp-OutputArea jp-Cell-outputArea">
 <div class="jp-OutputArea-child jp-OutputArea-executeResult">
 <div class="jp-OutputPrompt jp-OutputArea-prompt">Out[3]:</div>
-<div class="jp-RenderedJavaScript jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="application/javascript" id="9177b5f6-9a1f-49b6-8ac9-50975cbd620f" tabindex="0">
-<script type="text/javascript">
-var element = document.getElementById('9177b5f6-9a1f-49b6-8ac9-50975cbd620f');
-
-element.html('<style id="css">text {  font-weight: 300;  font-family: sans-serif;  font-size: 14px;}.node rect {  stroke: #999;  fill: #fff;  stroke-width: 1.5px;}.edgePath path {  stroke: #333;  stroke-width: 1.5px;}</style>');
-require.config({
-    paths: {
-        d3: 'https://d3js.org/d3.v5.min',
-        dagreD3: 'https://cdnjs.cloudflare.com/ajax/libs/dagre-d3/0.6.4/dagre-d3.min'
-    }
-});
-require(["d3", "dagreD3"], function(d3, dag) {
-    let g = new dag.graphlib.Graph().setGraph({});
-g.setNode("5th Edition", { "label": "5th Edition"});
-g.setNode("6th Edition", { "label": "6th Edition"});
-g.setNode("PWB 1.0", { "label": "PWB 1.0"});
-g.setNode("LSX", { "label": "LSX"});
-g.setNode("1 BSD", { "label": "1 BSD"});
-g.setNode("Mini Unix", { "label": "Mini Unix"});
-g.setNode("Wollongong", { "label": "Wollongong"});
-g.setNode("Interdata", { "label": "Interdata"});
-g.setNode("Unix/TS 3.0", { "label": "Unix/TS 3.0"});
-g.setNode("PWB 2.0", { "label": "PWB 2.0"});
-g.setNode("7th Edition", { "label": "7th Edition"});
-g.setNode("8th Edition", { "label": "8th Edition"});
-g.setNode("32V", { "label": "32V"});
-g.setNode("V7M", { "label": "V7M"});
-g.setNode("Ultrix-11", { "label": "Ultrix-11"});
-g.setNode("Xenix", { "label": "Xenix"});
-g.setNode("UniPlus+", { "label": "UniPlus+"});
-g.setNode("9th Edition", { "label": "9th Edition"});
-g.setNode("2 BSD", { "label": "2 BSD"});
-g.setNode("2.8 BSD", { "label": "2.8 BSD"});
-g.setNode("2.9 BSD", { "label": "2.9 BSD"});
-g.setNode("3 BSD", { "label": "3 BSD"});
-g.setNode("4 BSD", { "label": "4 BSD"});
-g.setNode("4.1 BSD", { "label": "4.1 BSD"});
-g.setNode("4.2 BSD", { "label": "4.2 BSD"});
-g.setNode("4.3 BSD", { "label": "4.3 BSD"});
-g.setNode("Ultrix-32", { "label": "Ultrix-32"});
-g.setNode("PWB 1.2", { "label": "PWB 1.2"});
-g.setNode("USG 1.0", { "label": "USG 1.0"});
-g.setNode("CB Unix 1", { "label": "CB Unix 1"});
-g.setNode("USG 2.0", { "label": "USG 2.0"});
-g.setNode("CB Unix 2", { "label": "CB Unix 2"});
-g.setNode("CB Unix 3", { "label": "CB Unix 3"});
-g.setNode("Unix/TS++", { "label": "Unix/TS++"});
-g.setNode("PDP-11 Sys V", { "label": "PDP-11 Sys V"});
-g.setNode("USG 3.0", { "label": "USG 3.0"});
-g.setNode("Unix/TS 1.0", { "label": "Unix/TS 1.0"});
-g.setNode("TS 4.0", { "label": "TS 4.0"});
-g.setNode("System V.0", { "label": "System V.0"});
-g.setNode("System V.2", { "label": "System V.2"});
-g.setNode("System V.3", { "label": "System V.3"});
-g.setEdge("5th Edition","6th Edition", {"label": ""});
-g.setEdge("5th Edition","PWB 1.0", {"label": ""});
-g.setEdge("6th Edition","LSX", {"label": ""});
-g.setEdge("6th Edition","1 BSD", {"label": ""});
-g.setEdge("6th Edition","Mini Unix", {"label": ""});
-g.setEdge("6th Edition","Wollongong", {"label": ""});
-g.setEdge("6th Edition","Interdata", {"label": ""});
-g.setEdge("PWB 1.0","PWB 1.2", {"label": ""});
-g.setEdge("PWB 1.0","USG 1.0", {"label": ""});
-g.setEdge("1 BSD","2 BSD", {"label": ""});
-g.setEdge("Interdata","Unix/TS 3.0", {"label": ""});
-g.setEdge("Interdata","PWB 2.0", {"label": ""});
-g.setEdge("Interdata","7th Edition", {"label": ""});
-g.setEdge("Unix/TS 3.0","TS 4.0", {"label": ""});
-g.setEdge("PWB 2.0","Unix/TS 3.0", {"label": ""});
-g.setEdge("7th Edition","8th Edition", {"label": ""});
-g.setEdge("7th Edition","32V", {"label": ""});
-g.setEdge("7th Edition","V7M", {"label": ""});
-g.setEdge("7th Edition","Ultrix-11", {"label": ""});
-g.setEdge("7th Edition","Xenix", {"label": ""});
-g.setEdge("7th Edition","UniPlus+", {"label": ""});
-g.setEdge("8th Edition","9th Edition", {"label": ""});
-g.setEdge("32V","3 BSD", {"label": ""});
-g.setEdge("V7M","Ultrix-11", {"label": ""});
-g.setEdge("2 BSD","2.8 BSD", {"label": ""});
-g.setEdge("2.8 BSD","Ultrix-11", {"label": ""});
-g.setEdge("2.8 BSD","2.9 BSD", {"label": ""});
-g.setEdge("3 BSD","4 BSD", {"label": ""});
-g.setEdge("4 BSD","4.1 BSD", {"label": ""});
-g.setEdge("4.1 BSD","4.2 BSD", {"label": ""});
-g.setEdge("4.1 BSD","2.8 BSD", {"label": ""});
-g.setEdge("4.1 BSD","8th Edition", {"label": ""});
-g.setEdge("4.2 BSD","4.3 BSD", {"label": ""});
-g.setEdge("4.2 BSD","Ultrix-32", {"label": ""});
-g.setEdge("PWB 1.2","PWB 2.0", {"label": ""});
-g.setEdge("USG 1.0","CB Unix 1", {"label": ""});
-g.setEdge("USG 1.0","USG 2.0", {"label": ""});
-g.setEdge("CB Unix 1","CB Unix 2", {"label": ""});
-g.setEdge("USG 2.0","USG 3.0", {"label": ""});
-g.setEdge("CB Unix 2","CB Unix 3", {"label": ""});
-g.setEdge("CB Unix 3","Unix/TS++", {"label": ""});
-g.setEdge("CB Unix 3","PDP-11 Sys V", {"label": ""});
-g.setEdge("CB Unix 3","TS 4.0", {"label": ""});
-g.setEdge("Unix/TS++","TS 4.0", {"label": ""});
-g.setEdge("USG 3.0","Unix/TS 3.0", {"label": ""});
-g.setEdge("Unix/TS 1.0","Unix/TS 3.0", {"label": ""});
-g.setEdge("TS 4.0","System V.0", {"label": ""});
-g.setEdge("System V.0","System V.2", {"label": ""});
-g.setEdge("System V.2","System V.3", {"label": ""});
-    let elem = d3.select(element.get(0))
-    let svg = elem.append("svg");
-    let inner = svg.append("g")
-    let render = new dag.render();
-    render(inner, g);
-    // Set up zoom support
-    var zoom = d3.zoom().on("zoom", function() {
-        inner.attr("transform", d3.event.transform);
-    });
-    svg.call(zoom);
-    // Realign the graph, edges may have x<0
-    svg.call(zoom.transform, d3.zoomIdentity.translate(g.graph().width/4.0, 20).scale(1));
-    svg.attr("height", g.graph().height + 40);
-    svg.attr("width", g.graph().width*1.5 + 40);
-});
-
-</script>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=38d44f5d">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
-</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 id="Visualize-with-Metro">Visualize with Metro<a class="anchor-link" href="#Visualize-with-Metro">¶</a></h2>
-</div>
-</div>
-</div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=f0ab9fbd">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [4]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">Metro</span><span class="p">(</span><span class="n">u</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child jp-OutputArea-executeResult">
-<div class="jp-OutputPrompt jp-OutputArea-prompt">Out[4]:</div>
 <div class="jp-RenderedHTMLCommon jp-RenderedHTML jp-OutputArea-output jp-OutputArea-executeResult" data-mime-type="text/html" tabindex="0">
-<svg baseprofile="full" height="100%" version="1.1" viewbox="25.0,5.0,475.0,820.0" width="100%" xmlns="http://www.w3.org/2000/svg" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xlink="http://www.w3.org/1999/xlink"><defs></defs><g><line stroke="lightgrey" stroke-dasharray="2" x1="230.0" x2="229.0" y1="15.0" y2="15.0"></line><line stroke="lightgrey" stroke-dasharray="2" x1="210.0" x2="229.0" y1="35.0" y2="35.0"></line><line stroke="lightgrey" stroke-dasharray="2" x1="190.0" x2="229.0" y1="55.0" y2="55.0"></line><line stroke="lightgrey" stroke-dasharray="2" x1="230.0" x2="229.0" y1="75.0" y2="75.0"></line><line stroke="lightgrey" stroke-dasharray="2" x1="170.0" x2="229.0" y1="95.0" y2="95.0"></line><line stroke="lightgrey" stroke-dasharray="2" x1="170.0" x2="229.0" y1="115.0" y2="115.0"></line><line stroke="lightgrey" stroke-dasharray="2" x1="150.0" x2="229.0" y1="135.0" y2="135.0"></line><line stroke="lightgrey" stroke-dasharray="2" x1="150.0" x2="229.0" y1="155.0" y2="155.0"></line><line stroke="lightgrey" stroke-dasharray="2" x1="190.0" x2="229.0" y1="175.0" y2="175.0"></line><line stroke="lightgrey" stroke-dasharray="2" x1="150.0" x2="229.0" y1="195.0" y2="195.0"></line><line stroke="lightgrey" stroke-dasharray="2" x1="230.0" x2="229.0" y1="215.0" y2="215.0"></line><line stroke="lightgrey" stroke-dasharray="2" x1="170.0" x2="229.0" y1="235.0" y2="235.0"></line><line stroke="lightgrey" stroke-dasharray="2" x1="130.0" x2="229.0" y1="255.0" y2="255.0"></line><line stroke="lightgrey" stroke-dasharray="2" x1="150.0" x2="229.0" y1="275.0" y2="275.0"></line><line stroke="lightgrey" stroke-dasharray="2" x1="110.0" x2="229.0" y1="295.0" y2="295.0"></line><line stroke="lightgrey" stroke-dasharray="2" x1="230.0" x2="229.0" y1="315.0" y2="315.0"></line><line stroke="lightgrey" stroke-dasharray="2" x1="90.0" x2="229.0" y1="335.0" y2="335.0"></line><line stroke="lightgrey" stroke-dasharray="2" x1="70.0" x2="229.0" y1="355.0" y2="355.0"></line><line stroke="lightgrey" stroke-dasharray="2" x1="50.0" x2="229.0" y1="375.0" y2="375.0"></line><line stroke="lightgrey" stroke-dasharray="2" x1="50.0" x2="229.0" y1="395.0" y2="395.0"></line><line stroke="lightgrey" stroke-dasharray="2" x1="110.0" x2="229.0" y1="415.0" y2="415.0"></line><line stroke="lightgrey" stroke-dasharray="2" x1="230.0" x2="229.0" y1="435.0" y2="435.0"></line><line stroke="lightgrey" stroke-dasharray="2" x1="90.0" x2="229.0" y1="455.0" y2="455.0"></line><line stroke="lightgrey" stroke-dasharray="2" x1="110.0" x2="229.0" y1="475.0" y2="475.0"></line><line stroke="lightgrey" stroke-dasharray="2" x1="210.0" x2="229.0" y1="495.0" y2="495.0"></line><line stroke="lightgrey" stroke-dasharray="2" x1="90.0" x2="209.0" y1="515.0" y2="515.0"></line><line stroke="lightgrey" stroke-dasharray="2" x1="150.0" x2="209.0" y1="535.0" y2="535.0"></line><line stroke="lightgrey" stroke-dasharray="2" x1="230.0" x2="229.0" y1="555.0" y2="555.0"></line><line stroke="lightgrey" stroke-dasharray="2" x1="90.0" x2="209.0" y1="575.0" y2="575.0"></line><line stroke="lightgrey" stroke-dasharray="2" x1="110.0" x2="209.0" y1="595.0" y2="595.0"></line><line stroke="lightgrey" stroke-dasharray="2" x1="150.0" x2="169.0" y1="615.0" y2="615.0"></line><line stroke="lightgrey" stroke-dasharray="2" x1="170.0" x2="169.0" y1="635.0" y2="635.0"></line><line stroke="lightgrey" stroke-dasharray="2" x1="90.0" x2="169.0" y1="655.0" y2="655.0"></line><line stroke="lightgrey" stroke-dasharray="2" x1="110.0" x2="169.0" y1="675.0" y2="675.0"></line><line stroke="lightgrey" stroke-dasharray="2" x1="210.0" x2="209.0" y1="695.0" y2="695.0"></line><line stroke="lightgrey" stroke-dasharray="2" x1="150.0" x2="169.0" y1="715.0" y2="715.0"></line><line stroke="lightgrey" stroke-dasharray="2" x1="70.0" x2="169.0" y1="735.0" y2="735.0"></line><line stroke="lightgrey" stroke-dasharray="2" x1="170.0" x2="169.0" y1="755.0" y2="755.0"></line><line stroke="lightgrey" stroke-dasharray="2" x1="90.0" x2="109.0" y1="775.0" y2="775.0"></line><line stroke="lightgrey" stroke-dasharray="2" x1="110.0" x2="109.0" y1="795.0" y2="795.0"></line><line stroke="lightgrey" stroke-dasharray="2" x1="110.0" x2="109.0" y1="815.0" y2="815.0"></line></g><g><line stroke="#c65353" stroke-width="2.0" x1="215.0" x2="215.0" y1="15.0" y2="75.0"></line><line stroke="#53c653" stroke-width="2.0" x1="175.0" x2="175.0" y1="55.0" y2="175.0"></line><line stroke="#53c6c6" stroke-width="2.0" x1="215.0" x2="215.0" y1="75.0" y2="215.0"></line><line stroke="#c653c6" stroke-width="2.0" x1="155.0" x2="155.0" y1="115.0" y2="235.0"></line><line stroke="#8cd98c" stroke-width="2.0" x1="135.0" x2="135.0" y1="195.0" y2="275.0"></line><line stroke="#8cd9d9" stroke-width="2.0" x1="215.0" x2="215.0" y1="215.0" y2="315.0"></line><line stroke="#993333" stroke-width="2.0" x1="95.0" x2="95.0" y1="295.0" y2="415.0"></line><line stroke="#999933" stroke-width="2.0" x1="215.0" x2="215.0" y1="315.0" y2="435.0"></line><line stroke="#339933" stroke-width="2.0" x1="75.0" x2="75.0" y1="335.0" y2="455.0"></line><line stroke="#993333" stroke-width="2.0" x1="95.0" x2="95.0" y1="415.0" y2="475.0"></line><line stroke="#d98c8c" stroke-width="2.0" x1="135.0" x2="135.0" y1="275.0" y2="480.0"></line><line stroke="#d9d98c" stroke-width="2.0" x1="175.0" x2="175.0" y1="175.0" y2="480.0"></line><line stroke="#c6c653" stroke-width="2.0" x1="195.0" x2="195.0" y1="35.0" y2="495.0"></line><line stroke="#c65353" stroke-width="2.0" x1="215.0" x2="215.0" y1="435.0" y2="480.0"></line><line stroke="#c6c653" stroke-width="2.0" x1="75.0" x2="75.0" y1="455.0" y2="515.0"></line><line stroke="#5353c6" stroke-width="2.0" x1="75.0" x2="75.0" y1="515.0" y2="575.0"></line><line stroke="#53c653" stroke-width="2.0" x1="95.0" x2="95.0" y1="475.0" y2="595.0"></line><line stroke="#c653c6" stroke-width="2.0" x1="135.0" x2="135.0" y1="535.0" y2="580.0"></line><line stroke="#53c6c6" stroke-width="2.0" x1="195.0" x2="195.0" y1="495.0" y2="580.0"></line><line stroke="#8c8cd9" stroke-width="2.0" x1="155.0" x2="155.0" y1="235.0" y2="635.0"></line><line stroke="#d98c8c" stroke-width="2.0" x1="75.0" x2="75.0" y1="575.0" y2="655.0"></line><line stroke="#d9d98c" stroke-width="2.0" x1="95.0" x2="95.0" y1="595.0" y2="675.0"></line><line stroke="#8cd98c" stroke-width="2.0" x1="135.0" x2="135.0" y1="615.0" y2="715.0"></line><line stroke="#339999" stroke-width="2.0" x1="55.0" x2="55.0" y1="355.0" y2="735.0"></line><line stroke="#d98cd9" stroke-width="2.0" x1="115.0" x2="115.0" y1="255.0" y2="720.0"></line><line stroke="#8cd9d9" stroke-width="2.0" x1="155.0" x2="155.0" y1="635.0" y2="755.0"></line><line stroke="#8c8cd9" stroke-width="2.0" x1="75.0" x2="75.0" y1="655.0" y2="775.0"></line><line stroke="#d98cd9" stroke-width="2.0" x1="95.0" x2="95.0" y1="675.0" y2="795.0"></line><line stroke="#333399" stroke-width="2.0" x1="95.0" x2="95.0" y1="795.0" y2="815.0"></line></g><g><line stroke="white" stroke-width="6.0" x1="175.0" x2="200.0" y1="55.0" y2="55.0"></line><line stroke="white" stroke-width="6.0" x1="155.0" x2="160.0" y1="95.0" y2="95.0"></line><line stroke="white" stroke-width="6.0" x1="155.0" x2="160.0" y1="115.0" y2="115.0"></line><line stroke="white" stroke-width="6.0" x1="135.0" x2="160.0" y1="135.0" y2="135.0"></line><line stroke="white" stroke-width="6.0" x1="135.0" x2="160.0" y1="155.0" y2="155.0"></line><line stroke="white" stroke-width="6.0" x1="135.0" x2="200.0" y1="195.0" y2="195.0"></line><line stroke="white" stroke-width="6.0" x1="115.0" x2="160.0" y1="255.0" y2="255.0"></line><line stroke="white" stroke-width="6.0" x1="135.0" x2="160.0" y1="275.0" y2="275.0"></line><line stroke="white" stroke-width="6.0" x1="95.0" x2="200.0" y1="295.0" y2="295.0"></line><line stroke="white" stroke-width="6.0" x1="75.0" x2="100.0" y1="335.0" y2="335.0"></line><line stroke="white" stroke-width="6.0" x1="55.0" x2="100.0" y1="355.0" y2="355.0"></line><line stroke="white" stroke-width="6.0" x1="35.0" x2="100.0" y1="375.0" y2="375.0"></line><line stroke="white" stroke-width="6.0" x1="35.0" x2="100.0" y1="395.0" y2="395.0"></line><line stroke="white" stroke-width="6.0" x1="150.0" x2="195.0" y1="495.0" y2="495.0"></line><line stroke="white" stroke-width="6.0" x1="195.0" x2="200.0" y1="495.0" y2="495.0"></line><line stroke="white" stroke-width="6.0" x1="110.0" x2="135.0" y1="535.0" y2="535.0"></line><line stroke="white" stroke-width="6.0" x1="110.0" x2="215.0" y1="555.0" y2="555.0"></line><line stroke="white" stroke-width="6.0" x1="95.0" x2="180.0" y1="595.0" y2="595.0"></line><line stroke="white" stroke-width="6.0" x1="90.0" x2="135.0" y1="615.0" y2="615.0"></line><line stroke="white" stroke-width="6.0" x1="90.0" x2="155.0" y1="635.0" y2="635.0"></line><line stroke="white" stroke-width="6.0" x1="75.0" x2="100.0" y1="655.0" y2="655.0"></line><line stroke="white" stroke-width="6.0" x1="150.0" x2="195.0" y1="695.0" y2="695.0"></line><line stroke="white" stroke-width="6.0" x1="55.0" x2="140.0" y1="735.0" y2="735.0"></line></g><g><path d="M 215.0,40.0 a15.0,15.0 0 0,1 -15.0,15.0" fill="none" stroke="#c65353" stroke-width="2.0"></path><line stroke="#c65353" stroke-width="2.0" x1="175.0" x2="200.0" y1="55.0" y2="55.0"></line><path d="M 175.0,80.0 a15.0,15.0 0 0,1 -15.0,15.0" fill="none" stroke="#53c653" stroke-width="2.0"></path><line stroke="#53c653" stroke-width="2.0" x1="155.0" x2="160.0" y1="95.0" y2="95.0"></line><path d="M 175.0,100.0 a15.0,15.0 0 0,1 -15.0,15.0" fill="none" stroke="#53c653" stroke-width="2.0"></path><line stroke="#53c653" stroke-width="2.0" x1="155.0" x2="160.0" y1="115.0" y2="115.0"></line><path d="M 175.0,120.0 a15.0,15.0 0 0,1 -15.0,15.0" fill="none" stroke="#53c653" stroke-width="2.0"></path><line stroke="#53c653" stroke-width="2.0" x1="135.0" x2="160.0" y1="135.0" y2="135.0"></line><path d="M 175.0,140.0 a15.0,15.0 0 0,1 -15.0,15.0" fill="none" stroke="#53c653" stroke-width="2.0"></path><line stroke="#53c653" stroke-width="2.0" x1="135.0" x2="160.0" y1="155.0" y2="155.0"></line><path d="M 215.0,180.0 a15.0,15.0 0 0,1 -15.0,15.0" fill="none" stroke="#53c6c6" stroke-width="2.0"></path><line stroke="#53c6c6" stroke-width="2.0" x1="135.0" x2="200.0" y1="195.0" y2="195.0"></line><path d="M 175.0,240.0 a15.0,15.0 0 0,1 -15.0,15.0" fill="none" stroke="#d9d98c" stroke-width="2.0"></path><line stroke="#d9d98c" stroke-width="2.0" x1="115.0" x2="160.0" y1="255.0" y2="255.0"></line><path d="M 175.0,260.0 a15.0,15.0 0 0,1 -15.0,15.0" fill="none" stroke="#d9d98c" stroke-width="2.0"></path><line stroke="#d9d98c" stroke-width="2.0" x1="135.0" x2="160.0" y1="275.0" y2="275.0"></line><path d="M 215.0,280.0 a15.0,15.0 0 0,1 -15.0,15.0" fill="none" stroke="#8cd9d9" stroke-width="2.0"></path><line stroke="#8cd9d9" stroke-width="2.0" x1="95.0" x2="200.0" y1="295.0" y2="295.0"></line><path d="M 115.0,320.0 a15.0,15.0 0 0,1 -15.0,15.0" fill="none" stroke="#d98cd9" stroke-width="2.0"></path><line stroke="#d98cd9" stroke-width="2.0" x1="75.0" x2="100.0" y1="335.0" y2="335.0"></line><path d="M 115.0,340.0 a15.0,15.0 0 0,1 -15.0,15.0" fill="none" stroke="#d98cd9" stroke-width="2.0"></path><line stroke="#d98cd9" stroke-width="2.0" x1="55.0" x2="100.0" y1="355.0" y2="355.0"></line><path d="M 115.0,360.0 a15.0,15.0 0 0,1 -15.0,15.0" fill="none" stroke="#d98cd9" stroke-width="2.0"></path><line stroke="#d98cd9" stroke-width="2.0" x1="35.0" x2="100.0" y1="375.0" y2="375.0"></line><path d="M 115.0,380.0 a15.0,15.0 0 0,1 -15.0,15.0" fill="none" stroke="#d98cd9" stroke-width="2.0"></path><line stroke="#d98cd9" stroke-width="2.0" x1="35.0" x2="100.0" y1="395.0" y2="395.0"></line><path d="M 135.0,480.0 a15.0,15.0 0 0,0 15.0,15.0" fill="none" stroke="#d98c8c" stroke-width="2.0"></path><path d="M 175.0,480.0 a15.0,15.0 0 0,0 15.0,15.0" fill="none" stroke="#d9d98c" stroke-width="2.0"></path><line stroke="#d98c8c" stroke-width="2.0" x1="150.0" x2="195.0" y1="495.0" y2="495.0"></line><path d="M 215.0,480.0 a15.0,15.0 0 0,1 -15.0,15.0" fill="none" stroke="#c65353" stroke-width="2.0"></path><line stroke="#c65353" stroke-width="2.0" x1="195.0" x2="200.0" y1="495.0" y2="495.0"></line><path d="M 95.0,520.0 a15.0,15.0 0 0,0 15.0,15.0" fill="none" stroke="#53c653" stroke-width="2.0"></path><line stroke="#53c653" stroke-width="2.0" x1="110.0" x2="135.0" y1="535.0" y2="535.0"></line><path d="M 95.0,540.0 a15.0,15.0 0 0,0 15.0,15.0" fill="none" stroke="#53c653" stroke-width="2.0"></path><line stroke="#53c653" stroke-width="2.0" x1="110.0" x2="215.0" y1="555.0" y2="555.0"></line><path d="M 135.0,580.0 a15.0,15.0 0 0,1 -15.0,15.0" fill="none" stroke="#c653c6" stroke-width="2.0"></path><path d="M 195.0,580.0 a15.0,15.0 0 0,1 -15.0,15.0" fill="none" stroke="#53c6c6" stroke-width="2.0"></path><line stroke="#53c6c6" stroke-width="2.0" x1="95.0" x2="180.0" y1="595.0" y2="595.0"></line><path d="M 75.0,600.0 a15.0,15.0 0 0,0 15.0,15.0" fill="none" stroke="#d98c8c" stroke-width="2.0"></path><line stroke="#d98c8c" stroke-width="2.0" x1="90.0" x2="135.0" y1="615.0" y2="615.0"></line><path d="M 75.0,620.0 a15.0,15.0 0 0,0 15.0,15.0" fill="none" stroke="#d98c8c" stroke-width="2.0"></path><line stroke="#d98c8c" stroke-width="2.0" x1="90.0" x2="155.0" y1="635.0" y2="635.0"></line><path d="M 115.0,640.0 a15.0,15.0 0 0,1 -15.0,15.0" fill="none" stroke="#d98cd9" stroke-width="2.0"></path><line stroke="#d98cd9" stroke-width="2.0" x1="75.0" x2="100.0" y1="655.0" y2="655.0"></line><path d="M 135.0,680.0 a15.0,15.0 0 0,0 15.0,15.0" fill="none" stroke="#8cd98c" stroke-width="2.0"></path><line stroke="#8cd98c" stroke-width="2.0" x1="150.0" x2="195.0" y1="695.0" y2="695.0"></line><path d="M 115.0,720.0 a15.0,15.0 0 0,1 -15.0,15.0" fill="none" stroke="#d98cd9" stroke-width="2.0"></path><path d="M 155.0,720.0 a15.0,15.0 0 0,1 -15.0,15.0" fill="none" stroke="#8cd9d9" stroke-width="2.0"></path><line stroke="#8cd9d9" stroke-width="2.0" x1="55.0" x2="140.0" y1="735.0" y2="735.0"></line></g><g><circle cx="215.0" cy="15.0" fill="#c65353" id="N5thEdition" r="6.0" stroke="white" stroke-width="2.0"></circle><text dominant-baseline="middle" fill="currentColor" font-family="sans-serif" font-size="inherit" x="235.0" y="15.0">5th Edition</text><circle cx="195.0" cy="35.0" fill="#c6c653" id="NUnixTS10" r="6.0" stroke="white" stroke-width="2.0"></circle><text dominant-baseline="middle" fill="currentColor" font-family="sans-serif" font-size="inherit" x="235.0" y="35.0">Unix/TS 1.0</text><circle cx="175.0" cy="55.0" fill="#53c653" id="N6thEdition" r="6.0" stroke="white" stroke-width="2.0"></circle><text dominant-baseline="middle" fill="currentColor" font-family="sans-serif" font-size="inherit" x="235.0" y="55.0">6th Edition</text><circle cx="215.0" cy="75.0" fill="#53c6c6" id="NPWB10" r="6.0" stroke="white" stroke-width="2.0"></circle><text dominant-baseline="middle" fill="currentColor" font-family="sans-serif" font-size="inherit" x="235.0" y="75.0">PWB 1.0</text><circle cx="155.0" cy="95.0" fill="#5353c6" id="NLSX" r="6.0" stroke="white" stroke-width="2.0"></circle><text dominant-baseline="middle" fill="currentColor" font-family="sans-serif" font-size="inherit" x="235.0" y="95.0">LSX</text><circle cx="155.0" cy="115.0" fill="#c653c6" id="N1BSD" r="6.0" stroke="white" stroke-width="2.0"></circle><text dominant-baseline="middle" fill="currentColor" font-family="sans-serif" font-size="inherit" x="235.0" y="115.0">1 BSD</text><circle cx="135.0" cy="135.0" fill="#c65353" id="NMiniUnix" r="6.0" stroke="white" stroke-width="2.0"></circle><text dominant-baseline="middle" fill="currentColor" font-family="sans-serif" font-size="inherit" x="235.0" y="135.0">Mini Unix</text><circle cx="135.0" cy="155.0" fill="#d98c8c" id="NWollongong" r="6.0" stroke="white" stroke-width="2.0"></circle><text dominant-baseline="middle" fill="currentColor" font-family="sans-serif" font-size="inherit" x="235.0" y="155.0">Wollongong</text><circle cx="175.0" cy="175.0" fill="#d9d98c" id="NInterdata" r="6.0" stroke="white" stroke-width="2.0"></circle><text dominant-baseline="middle" fill="currentColor" font-family="sans-serif" font-size="inherit" x="235.0" y="175.0">Interdata</text><circle cx="135.0" cy="195.0" fill="#8cd98c" id="NPWB12" r="6.0" stroke="white" stroke-width="2.0"></circle><text dominant-baseline="middle" fill="currentColor" font-family="sans-serif" font-size="inherit" x="235.0" y="195.0">PWB 1.2</text><circle cx="215.0" cy="215.0" fill="#8cd9d9" id="NUSG10" r="6.0" stroke="white" stroke-width="2.0"></circle><text dominant-baseline="middle" fill="currentColor" font-family="sans-serif" font-size="inherit" x="235.0" y="215.0">USG 1.0</text><circle cx="155.0" cy="235.0" fill="#8c8cd9" id="N2BSD" r="6.0" stroke="white" stroke-width="2.0"></circle><text dominant-baseline="middle" fill="currentColor" font-family="sans-serif" font-size="inherit" x="235.0" y="235.0">2 BSD</text><circle cx="115.0" cy="255.0" fill="#d98cd9" id="N7thEdition" r="6.0" stroke="white" stroke-width="2.0"></circle><text dominant-baseline="middle" fill="currentColor" font-family="sans-serif" font-size="inherit" x="235.0" y="255.0">7th Edition</text><circle cx="135.0" cy="275.0" fill="#d98c8c" id="NPWB20" r="6.0" stroke="white" stroke-width="2.0"></circle><text dominant-baseline="middle" fill="currentColor" font-family="sans-serif" font-size="inherit" x="235.0" y="275.0">PWB 2.0</text><circle cx="95.0" cy="295.0" fill="#993333" id="NCBUnix1" r="6.0" stroke="white" stroke-width="2.0"></circle><text dominant-baseline="middle" fill="currentColor" font-family="sans-serif" font-size="inherit" x="235.0" y="295.0">CB Unix 1</text><circle cx="215.0" cy="315.0" fill="#999933" id="NUSG20" r="6.0" stroke="white" stroke-width="2.0"></circle><text dominant-baseline="middle" fill="currentColor" font-family="sans-serif" font-size="inherit" x="235.0" y="315.0">USG 2.0</text><circle cx="75.0" cy="335.0" fill="#339933" id="N32V" r="6.0" stroke="white" stroke-width="2.0"></circle><text dominant-baseline="middle" fill="currentColor" font-family="sans-serif" font-size="inherit" x="235.0" y="335.0">32V</text><circle cx="55.0" cy="355.0" fill="#339999" id="NV7M" r="6.0" stroke="white" stroke-width="2.0"></circle><text dominant-baseline="middle" fill="currentColor" font-family="sans-serif" font-size="inherit" x="235.0" y="355.0">V7M</text><circle cx="35.0" cy="375.0" fill="#333399" id="NXenix" r="6.0" stroke="white" stroke-width="2.0"></circle><text dominant-baseline="middle" fill="currentColor" font-family="sans-serif" font-size="inherit" x="235.0" y="375.0">Xenix</text><circle cx="35.0" cy="395.0" fill="#993399" id="NUniPlus" r="6.0" stroke="white" stroke-width="2.0"></circle><text dominant-baseline="middle" fill="currentColor" font-family="sans-serif" font-size="inherit" x="235.0" y="395.0">UniPlus+</text><circle cx="95.0" cy="415.0" fill="#993333" id="NCBUnix2" r="6.0" stroke="white" stroke-width="2.0"></circle><text dominant-baseline="middle" fill="currentColor" font-family="sans-serif" font-size="inherit" x="235.0" y="415.0">CB Unix 2</text><circle cx="215.0" cy="435.0" fill="#c65353" id="NUSG30" r="6.0" stroke="white" stroke-width="2.0"></circle><text dominant-baseline="middle" fill="currentColor" font-family="sans-serif" font-size="inherit" x="235.0" y="435.0">USG 3.0</text><circle cx="75.0" cy="455.0" fill="#c6c653" id="N3BSD" r="6.0" stroke="white" stroke-width="2.0"></circle><text dominant-baseline="middle" fill="currentColor" font-family="sans-serif" font-size="inherit" x="235.0" y="455.0">3 BSD</text><circle cx="95.0" cy="475.0" fill="#53c653" id="NCBUnix3" r="6.0" stroke="white" stroke-width="2.0"></circle><text dominant-baseline="middle" fill="currentColor" font-family="sans-serif" font-size="inherit" x="235.0" y="475.0">CB Unix 3</text><circle cx="195.0" cy="495.0" fill="#53c6c6" id="NUnixTS30" r="6.0" stroke="white" stroke-width="2.0"></circle><text dominant-baseline="middle" fill="currentColor" font-family="sans-serif" font-size="inherit" x="235.0" y="495.0">Unix/TS 3.0</text><circle cx="75.0" cy="515.0" fill="#5353c6" id="N4BSD" r="6.0" stroke="white" stroke-width="2.0"></circle><text dominant-baseline="middle" fill="currentColor" font-family="sans-serif" font-size="inherit" x="215.0" y="515.0">4 BSD</text><circle cx="135.0" cy="535.0" fill="#c653c6" id="NUnixTS" r="6.0" stroke="white" stroke-width="2.0"></circle><text dominant-baseline="middle" fill="currentColor" font-family="sans-serif" font-size="inherit" x="215.0" y="535.0">Unix/TS++</text><circle cx="215.0" cy="555.0" fill="#c65353" id="NPDP-11SysV" r="6.0" stroke="white" stroke-width="2.0"></circle><text dominant-baseline="middle" fill="currentColor" font-family="sans-serif" font-size="inherit" x="235.0" y="555.0">PDP-11 Sys V</text><circle cx="75.0" cy="575.0" fill="#d98c8c" id="N41BSD" r="6.0" stroke="white" stroke-width="2.0"></circle><text dominant-baseline="middle" fill="currentColor" font-family="sans-serif" font-size="inherit" x="215.0" y="575.0">4.1 BSD</text><circle cx="95.0" cy="595.0" fill="#d9d98c" id="NTS40" r="6.0" stroke="white" stroke-width="2.0"></circle><text dominant-baseline="middle" fill="currentColor" font-family="sans-serif" font-size="inherit" x="215.0" y="595.0">TS 4.0</text><circle cx="135.0" cy="615.0" fill="#8cd98c" id="N42BSD" r="6.0" stroke="white" stroke-width="2.0"></circle><text dominant-baseline="middle" fill="currentColor" font-family="sans-serif" font-size="inherit" x="175.0" y="615.0">4.2 BSD</text><circle cx="155.0" cy="635.0" fill="#8cd9d9" id="N28BSD" r="6.0" stroke="white" stroke-width="2.0"></circle><text dominant-baseline="middle" fill="currentColor" font-family="sans-serif" font-size="inherit" x="175.0" y="635.0">2.8 BSD</text><circle cx="75.0" cy="655.0" fill="#8c8cd9" id="N8thEdition" r="6.0" stroke="white" stroke-width="2.0"></circle><text dominant-baseline="middle" fill="currentColor" font-family="sans-serif" font-size="inherit" x="175.0" y="655.0">8th Edition</text><circle cx="95.0" cy="675.0" fill="#d98cd9" id="NSystemV0" r="6.0" stroke="white" stroke-width="2.0"></circle><text dominant-baseline="middle" fill="currentColor" font-family="sans-serif" font-size="inherit" x="175.0" y="675.0">System V.0</text><circle cx="195.0" cy="695.0" fill="#d98c8c" id="N43BSD" r="6.0" stroke="white" stroke-width="2.0"></circle><text dominant-baseline="middle" fill="currentColor" font-family="sans-serif" font-size="inherit" x="215.0" y="695.0">4.3 BSD</text><circle cx="135.0" cy="715.0" fill="#993333" id="NUltrix-32" r="6.0" stroke="white" stroke-width="2.0"></circle><text dominant-baseline="middle" fill="currentColor" font-family="sans-serif" font-size="inherit" x="175.0" y="715.0">Ultrix-32</text><circle cx="55.0" cy="735.0" fill="#999933" id="NUltrix-11" r="6.0" stroke="white" stroke-width="2.0"></circle><text dominant-baseline="middle" fill="currentColor" font-family="sans-serif" font-size="inherit" x="175.0" y="735.0">Ultrix-11</text><circle cx="155.0" cy="755.0" fill="#339933" id="N29BSD" r="6.0" stroke="white" stroke-width="2.0"></circle><text dominant-baseline="middle" fill="currentColor" font-family="sans-serif" font-size="inherit" x="175.0" y="755.0">2.9 BSD</text><circle cx="75.0" cy="775.0" fill="#339999" id="N9thEdition" r="6.0" stroke="white" stroke-width="2.0"></circle><text dominant-baseline="middle" fill="currentColor" font-family="sans-serif" font-size="inherit" x="115.0" y="775.0">9th Edition</text><circle cx="95.0" cy="795.0" fill="#333399" id="NSystemV2" r="6.0" stroke="white" stroke-width="2.0"></circle><text dominant-baseline="middle" fill="currentColor" font-family="sans-serif" font-size="inherit" x="115.0" y="795.0">System V.2</text><circle cx="95.0" cy="815.0" fill="#993399" id="NSystemV3" r="6.0" stroke="white" stroke-width="2.0"></circle><text dominant-baseline="middle" fill="currentColor" font-family="sans-serif" font-size="inherit" x="115.0" y="815.0">System V.3</text></g></svg>
+<svg baseprofile="full" height="100%" version="1.1" viewbox="25.0,5.0,675.0,40.0" width="100%" xmlns="http://www.w3.org/2000/svg" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xlink="http://www.w3.org/1999/xlink"><defs></defs><g><line stroke="lightgrey" stroke-dasharray="2" x1="50.0" x2="49.0" y1="15.0" y2="15.0"></line><line stroke="lightgrey" stroke-dasharray="2" x1="50.0" x2="49.0" y1="35.0" y2="35.0"></line></g><g><line stroke="#c65353" stroke-width="2.0" x1="35.0" x2="35.0" y1="15.0" y2="35.0"></line></g><g></g><g></g><g><circle cx="35.0" cy="15.0" fill="#c65353" id="NA012345678901234567890123456789012345678901234567890123456789" r="6.0" stroke="white" stroke-width="2.0"></circle><text dominant-baseline="middle" fill="currentColor" font-family="sans-serif" font-size="inherit" x="55.0" y="15.0">A012345678901234567890123456789012345678901234567890123456789</text><circle cx="35.0" cy="35.0" fill="#c6c653" id="NB012345678901234567890123456789012345678901234567890123456789" r="6.0" stroke="white" stroke-width="2.0"></circle><text dominant-baseline="middle" fill="currentColor" font-family="sans-serif" font-size="inherit" x="55.0" y="35.0">B012345678901234567890123456789012345678901234567890123456789</text></g></svg>
 </div>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=bf6e954d">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
