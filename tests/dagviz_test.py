@@ -1,6 +1,7 @@
 import unittest
 import networkx as nx
 import dagviz
+from dagviz.style.metro import StyleConfig, svg_renderer
 
 
 class DagvizTest(unittest.TestCase):
@@ -63,3 +64,24 @@ class DagvizTest(unittest.TestCase):
         r = dagviz.Metro(G)._repr_html_()
         self.assertTrue(r.startswith("<svg"))
         self.assertTrue(r.endswith("</svg>"))
+
+    def test_custom_style_dark_theme(self):
+        G = nx.DiGraph()
+        for i in range(5):
+            G.add_node(f"n{i}")
+        G.add_edge(f"n0", f"n1")
+        G.add_edge(f"n0", f"n2")
+        G.add_edge(f"n0", f"n4")
+        G.add_edge(f"n1", f"n3")
+        G.add_edge(f"n2", f"n3")
+        G.add_edge(f"n3", f"n4")
+        custom_style = svg_renderer(
+            StyleConfig(
+                label_font_color="white",
+                bridge_color="black",
+            )
+        )
+        r = dagviz.render_svg(G, style=custom_style)
+        self.assertTrue(r.startswith("<svg"))
+        self.assertIn('fill="white"', r)
+        self.assertIn('stroke="black"', r)

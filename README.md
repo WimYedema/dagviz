@@ -35,3 +35,23 @@ DAG. An SVG file can be generated as follows:
     with open("simple.svg", "wt") as fs:
         fs.write(r)
 ```
+
+### Custom styling
+
+The Metro style can be customized using `StyleConfig`. This is especially
+useful for rendering on dark backgrounds:
+
+```py
+    from dagviz.style.metro import svg_renderer, StyleConfig
+
+    dark_style = svg_renderer(StyleConfig(
+        node_stroke="black",
+        label_font_color="white",
+        bridge_color="black",
+        label_arrow_stroke="grey",
+    ))
+
+    r = dagviz.render_svg(G, style=dark_style)
+```
+
+See the [Metro styling notebook](https://wimyedema.github.io/dagviz/notebooks/Metro%20styling.html) for a full overview of all available options.
